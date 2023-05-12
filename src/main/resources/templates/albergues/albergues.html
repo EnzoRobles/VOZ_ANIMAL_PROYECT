@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Administración de Albergues</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container my-2">
+    <h1>Listado de Albergues</h1>
+    <a th:href="@{/nuevoAlbergue}" class="btn btn-outline-dark"><img th:src="@{/img/agregar.png}" alt="Agregar" width="30" height="30"/> Agregar Vehiculo</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id de Albergue</th>
+            <th>Dirección</th>
+            <th>Foto</th>
+            <th>Nombre</th>
+            <th>Telefono</th>
+            <th>Estado</th>
+            <th>Actualizar</th>
+            <th>Eliminar</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="albergue : ${listaAlbergues}">
+            <td th:text="${albergue.getId()}" > </td>
+            <td th:text="${albergue.getDireccion()}" > </td>
+            <td style="text-align: center; vertical-align: middle;">
+                <img th:src="@{/img/uploads/__${albergue.foto}__}" width="30" height="30">
+            </td>
+            <td th:text="${albergue.getNombre()}" > </td>
+            <td th:text="${albergue.getTelefono()}" > </td>
+            <td th:text="${albergue.NombreEstado()}" ></td>
+            <td style="text-align: center; vertical-align: middle;">
+                <div class="bg-image hover-zoom">
+                <a th:href="@{/actualizarAlbergue/{id}(id=${albergue.id})}">
+                    <img th:src="@{/img/actualizar.png}" alt="Actualizar" width="30" height="30">
+                </a></div>
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                <div class="bg-image hover-zoom">
+                <a th:href="@{/eliminarAlbergue/{id}(id=${albergue.id})}">
+                    <img th:src="@{/img/eliminar.png}" alt="Eliminar" width="30" height="30">
+                </a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
