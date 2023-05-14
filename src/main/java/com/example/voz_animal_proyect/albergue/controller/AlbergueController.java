@@ -77,6 +77,7 @@ public class AlbergueController {
 
     @GetMapping("/eliminarAlbergue/{id}")
     public String eliminarAlbergue(@PathVariable(value="id") long id){
+       //en caso no cargue las fotos anotar esto asta aca
         Albergue Albergue =  albergueService.obtenerAlberguePorId(id);
 
         String fotoNombre = Albergue.getFoto();
@@ -89,7 +90,44 @@ public class AlbergueController {
             Albergue.setFoto(null);
             albergueService.guardarAlbergue(Albergue);
         }
+        //hasta aca
         albergueService.eliminarAlbergue(id);
         return "redirect:/albergues";
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
