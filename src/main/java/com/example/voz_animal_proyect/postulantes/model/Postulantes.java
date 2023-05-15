@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name="tb_postulantes")
 @Getter
 @Setter
-/*idpostulante,nombres,apellidos,telefono,dni,direccion,puntaje*/
+/*idpostulante,nombres,apellidos,telefono,dni,foto,direccion,puntaje*/
 public class Postulantes {
 
     @Id
@@ -28,6 +28,9 @@ public class Postulantes {
 
     @Column(name="dni", length = 8, nullable = false)
     private String dni;
+
+    @Column(name="foto", length = 300 )
+    private String foto;
 
     @Column(name="direccion", length = 300, nullable = false )
     private String direccion;

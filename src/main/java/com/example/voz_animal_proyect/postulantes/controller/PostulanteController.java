@@ -38,7 +38,7 @@ public class PostulanteController {
         return  "albergues/nuevoPostulantes";
     }
 
-    /*
+
     @RequestMapping(value = "/guardarPostulantes", method = RequestMethod.POST)
     public String guardarPostulantes(Postulantes postulantes,@RequestParam("file") MultipartFile foto){
         if(!foto.isEmpty()) {
@@ -56,9 +56,9 @@ public class PostulanteController {
             postulanteService.guardarPostulantes(postulantes);
         }
         return "redirect:/postulantes";
-    }*/
+    }
 
-    /*
+
     @GetMapping("/actualizarPostulantes/{id}")
     public String actualizarPostulantes(@PathVariable(value="id") long id, Map<String, Object>  model){
         Postulantes Postulantes =  postulanteService.obtenerPostulantesPorId(id);
@@ -77,7 +77,7 @@ public class PostulanteController {
 
         model.put("postulantes", Postulantes);
         return "albergues/actualizarPostulantes";
-    }*/
+    }
 
     @GetMapping("/eliminarPostulantes/{id}")
     public String eliminarPostulantes(@PathVariable(value="id") long id){
