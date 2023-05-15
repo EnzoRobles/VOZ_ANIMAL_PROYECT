@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Administración de Encargado</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container my-2">
+    <h1>Listado de Encargado</h1>
+    <a th:href="@{/nuevoEncargado}" class="btn btn-outline-dark"><img th:src="@{/img/agregar.png}" alt="Agregar" width="30" height="30"/> Agregar Encargado</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id de Encargado</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Telefono</th>
+            <th>DNI</th>
+            <th>Estado</th>
+            <th>Actualizar</th>
+            <th>Eliminar</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="encargado : ${listaEncargados}">
+            <td th:text="${encargado.getIdEncargado()}" > </td>
+            <td th:text="${encargado.getNomEn()}" > </td>
+            <td th:text="${encargado.getApeEn()}" > </td>
+            <td th:text="${encargado.getTel()}" > </td>
+            <td th:text="${encargado.getDni()}" > </td>
+            <td th:text="${encargado.EstadoEncargado()}" ></td>
+            <td style="text-align: center; vertical-align: middle;">
+                <div class="bg-image hover-zoom">
+                    <a th:href="@{/actualizarEncargados/{id}(id=${encargado.idEncargado})}">
+                        <img th:src="@{/img/actualizar.png}" alt="Actualizar" width="30" height="30">
+                    </a></div>
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                <div class="bg-image hover-zoom">
+                    <a th:href="@{/eliminarEncargados/{id}(id=${encargado.idEncargado})}">
+                        <img th:src="@{/img/eliminar.png}" alt="Eliminar" width="30" height="30">
+                    </a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
