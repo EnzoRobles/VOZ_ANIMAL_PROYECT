@@ -1,10 +1,13 @@
 package com.example.voz_animal_proyect.albergue.model;
 
 
+import com.example.voz_animal_proyect.mascotas.model.Mascotas;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -42,5 +45,10 @@ public class Albergue {
         }
         return nombreEstado;
     }
+    @OneToMany(mappedBy = "albergue")
+    @JsonBackReference
+    private Set<Mascotas> mascotas;
+
+
 
 }

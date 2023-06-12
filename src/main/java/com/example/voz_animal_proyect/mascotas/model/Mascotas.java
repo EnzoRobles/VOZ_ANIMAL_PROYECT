@@ -1,22 +1,31 @@
 package com.example.voz_animal_proyect.mascotas.model;
 
+import com.example.voz_animal_proyect.albergue.model.Albergue;
+import com.example.voz_animal_proyect.formularios.model.SolicitudVisita;
+import com.example.voz_animal_proyect.raza.model.Raza;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
+
 @Entity
 @Table(name="tb_mascotas")
 @Getter
 @Setter
-/*idmascota,edad,raza,nombre,descripcion,peso,sexo,foto,estado*/
 public class Mascotas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_mascota")
     private long id;
 
-    @Column(name="raza", length = 200, nullable = false)
-    private String raza;
+    @ManyToOne()
+    @JoinColumn(name = "id_raza")
+    @JsonManagedReference
+    private Raza raza;
 
     @Column(name="descripcion", length = 300 )
     private String descripcion;
@@ -56,4 +65,13 @@ public class Mascotas {
         }
         return nombreSexo;
     }
+
+    @ManyToOne()
+    @JoinColumn(name = "id_albergue")
+    @JsonManagedReference
+    private Albergue albergue;
+
+    @OneToMany(mappedBy = "mascotas")
+    @JsonIgnore
+    private Set<SolicitudVisita> solicitudes;
 }

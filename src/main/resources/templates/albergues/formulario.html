@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .red-button {
+            background-color: red;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            margin: 0;
+        }
+        .selected {
+            outline: 2px solid #00000061;
+            outline-offset: -2px;
+        }
+
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-container input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #enviarButton {
+            width: 100%;
+            padding: 10px;
+            color: #000000;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #card8{
+            width: 100%;
+            max-width: 50%;
+            max-height: 80%;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            border-radius: 4px;
+        }
+        #Test {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            width: 100%;
+            max-width: 50%;
+            max-height: 80%;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            border-radius: 4px;
+        }
+
+        .slider {
+            width: 100%;
+            height: 10px;
+            background-color: #ddd;
+            position: relative;
+            margin: 20px 0;
+        }
+        .slider-thumb {
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            cursor: pointer;
+        }
+        .slider-thumb img {
+            display: block;
+            width: 40px;
+            height: 40px;
+            opacity: 0.7;
+        }
+        .slider-thumb:hover img {
+            opacity: 1;
+            transition: width 2s;
+        }
+        .rounded-card.selected {
+            border-color: #007bff; /* Cambia el color del borde cuando la tarjeta está seleccionada */
+        }
+
+
+        .rounded-card {
+            display: flex;
+            flex-direction: row;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave */
+            background-color: #f9f9f9; /* Cambia el color de fondo */
+            transition: box-shadow 0.3s ease-in-out; /* Agrega una transición suave al pasar el mouse */
+
+            cursor: pointer; /* Hace que el cursor cambie a una mano al pasar sobre la tarjeta */
+            transition: border-color 0.3s ease-in-out; /* Agrega una transición suave al cambiar el color del borde */
+        }
+
+        .rounded-card:hover {
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Cambia la sombra al pasar el mouse */
+        }
+
+        #pregunta02S {
+            width: 100%;
+            height: 10px;
+            background-color: #ddd;
+            position: relative;
+            margin: 20px 0;
+        }
+        #pregunta02ST {
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            cursor: pointer;
+        }
+        #pregunta02ST img {
+            display: block;
+            width: 40px;
+            height: 40px;
+            opacity: 0.7;
+        }
+        #pregunta02ST:hover img {
+            opacity: 1;
+            transition: width 2s;
+        }
+
+
+
+
+
+
+
+        .custom-button {
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .raza-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+        .image-container {
+            display: block;
+            width: 50%;
+            height: 100px;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .image-container img {
+            display: block;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 0;
+            height: 100%;
+            transition: width 0s ease-in-out;
+        }
+        #selectedSize {
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .fade-out {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .fade-in {
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .card-transition {
+            transition: opacity 0.5s ease-in-out;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="Test">
+    <div class="container" id="container" >
+        <div class="card shadow">
+            <div class="card-body">
+                <form id="myForm"  th:object="${postulantes}">
+                    <div class="form-group">
+                        <input id = "id_postulante" type="hidden" th:field="*{id}">
+                        <div class="form-group">
+                            <label for="nombre" class="text-secondary">Nombre:</label>
+                            <input type="text" th:field="*{nombre}" class="form-control" id="nombre" placeholder="Nombre">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="apellido" class="text-secondary">Apellido:</label>
+                            <input type="text" th:field="*{apellido}" class="form-control" id="apellido" placeholder="Apellido">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dni" class="text-secondary">DNI:</label>
+                            <input type="text" th:field="*{dni}" class="form-control" id="dni" placeholder="DNI">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telefono" class="text-secondary">Teléfono:</label>
+                            <input type="text" th:field="*{telefono}" class="form-control" id="telefono" placeholder="Teléfono">
+                        </div>
+                    </div>
+                </form>
+                <div class="text-center">
+                    <br>
+                    <button type="submit" id="enviarButton" class="btn btn-warning custom-button justify-content-center">Continuar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="card1" class="card hidden">
+        <h4 class="text-center">Tamaño</h4>
+        <p class="text-center">Desliza la barra de tamaño</p>
+        <div class="image-container">
+            <img id="image" src="https://cdn-icons-png.flaticon.com/512/91/91544.png" alt="centered image" />
+        </div>
+        <p id="selectedSize" class="text-center">Pequeño</p>
+        <div class="slider">
+            <div class="slider-thumb">
+                <img src="https://img.freepik.com/iconos-gratis/pata_318-530213.jpg" width="5" height="5">
+            </div>
+        </div>
+
+
+        <button id="continueButton1" class="btn btn-primary custom-button" disabled>Continuar</button>
+
+
+    </div>
+
+    <div id="card2" class="card hidden">
+        <h4 class="text-center">Tiempo</h4>
+        <p class="text-center">Cuanto tiempo tienes disponible para tu mascota</p>
+        <h4 id="selectedSize2" class="text-center">...</h4>
+        <div class="slider" id="pregunta02S">
+            <div class="slider-thumb" id="pregunta02ST">
+                <img src="https://img.freepik.com/iconos-gratis/pata_318-530213.jpg" width="5" height="5">
+            </div>
+        </div>
+
+        <button id="continueButton2" class="btn btn-primary custom-button" disabled>Continuar</button>
+    </div>
+
+    <div id="card3" class="card hidden">
+        <h4 class="text-center">Personalidad y Comportamiento</h4>
+        <p class="text-center">Elija la que estén de acuerdo a sus preferencias</p>
+
+        <div class="text-left" style="margin-left: 18px;">
+            <input type="checkbox" id="tranquiloCheckbox" class="checkbox-style" onclick="handleCheckboxClick(this)">
+            <label for="tranquiloCheckbox">Tranquilo</label><br>
+
+            <input type="checkbox" id="cariñosoCheckbox" class="checkbox-style" onclick="handleCheckboxClick(this)">
+            <label for="cariñosoCheckbox">Cariñoso</label><br>
+
+            <input type="checkbox" id="dormilonCheckbox" class="checkbox-style" onclick="handleCheckboxClick(this)">
+            <label for="dormilonCheckbox">Dormilón</label><br>
+
+            <input type="checkbox" id="inquietoCheckbox" class="checkbox-style" onclick="handleCheckboxClick(this)">
+            <label for="inquietoCheckbox">Inquieto</label><br>
+
+            <input type="checkbox" id="lealCheckbox" class="checkbox-style" onclick="handleCheckboxClick(this)">
+            <label for="lealCheckbox">Leal</label><br>
+        </div>
+
+        <button id="continueButton3" class="btn btn-primary custom-button" disabled>Continuar</button>
+    </div>
+
+
+    <div id="card4" class="card hidden">
+        <h4 class="text-center">Habilidades y Características</h4>
+        <p class="text-center">Elija la que estén de acuerdo a sus preferencias</p>
+
+        <div class="text-left" style="margin-left: 18px;">
+            <input type="checkbox" id="inteligenteCheckbox" class="checkbox-style"onclick="handleCheckboxClick(this)">
+            <label for="inteligenteCheckbox">Inteligente</label><br>
+
+            <input type="checkbox" id="activoCheckbox" class="checkbox-style"onclick="handleCheckboxClick(this)">
+            <label for="activoCheckbox">Activo</label><br>
+
+            <input type="checkbox" id="juguetonCheckbox" class="checkbox-style"onclick="handleCheckboxClick(this)">
+            <label for="juguetonCheckbox">Juguetón</label><br>
+
+            <input type="checkbox" id="amigableCheckbox" class="checkbox-style"onclick="handleCheckboxClick(this)">
+            <label for="amigableCheckbox">Amigable</label><br>
+
+            <input type="checkbox" id="protectivoCheckbox" class="checkbox-style"onclick="handleCheckboxClick(this)">
+            <label for="protectivoCheckbox">Protectivo</label><br>
+        </div>
+        <button id="continueButton4"
+                class="btn btn-primary custom-button" disabled>Continuar</button>
+
+    </div>
+
+    <div id="card5" class="card hidden">
+        <h4 class="text-center">Vivienda</h4>
+        <p class="text-center">Seleccione su tipo de vivienda:</p>
+
+        <div class="text-left">
+            <label for="casaOption">
+                <input type="radio" id="casaOption" name="vivienda" class="radio-style" data-value="Casa">Casa
+                <img src="https://cdn-icons-png.flaticon.com/512/602/602216.png" alt="Casa" class="vivienda-image"  width="25px" height="25px" style="margin-top: -5px;">
+
+            </label><br>
+
+            <label for="departamentoOption">
+                <input type="radio" id="departamentoOption" name="vivienda" class="radio-style" data-value="Departamento">
+                Departamento
+                <img src="https://cdn-icons-png.flaticon.com/512/2101/2101155.png" alt="Departamento" class="vivienda-image"  width="25px" height="25px" style="margin-top: -5px;">
+
+            </label><br>
+        </div>
+
+        <button id="continueButton5" class="btn btn-primary custom-button" disabled>Continuar</button>
+    </div>
+
+    <div id="card6" class="card hidden">
+        <h4 class="text-center">Hogar</h4>
+        <p class="text-center">¿Usted vive solo o en familia?</p>
+
+        <div class="text-left">
+            <label for="soloOption">
+                <input type="radio" id="soloOption" name="hogar" data-value="Solo" class="radio-style">
+                Solo
+                <img src="https://cdn.pixabay.com/photo/2018/04/09/11/14/silhouette-3303816_960_720.png" alt="Casa" class="hogar-image"  width="18px" height="30px" style="margin-top: -5px;">
+
+            </label><br>
+
+            <label for="familiaOption">
+                <input type="radio" id="familiaOption" name="hogar" class="radio-style">
+                En familia
+                <img src="https://cdn-icons-png.flaticon.com/512/122/122909.png" alt="Familia" class="hogar-image"  width="25px" height="25px" style="margin-top: -5px;">
+
+            </label><br>
+        </div>
+
+        <button id="continueButton6" class="btn btn-primary custom-button">Continuar</button>
+    </div>
+    <div id="card7" class="card hidden">
+        <h4 id="mesagge" class="text-center"></h4>
+        <p id="tituloR" class="text-center"></p>
+        <h4 id="nomRaza" class="text-center"></h4>
+        <div class="text-left">
+        </div>
+        <button id="continueButton7" class="btn btn-primary custom-button">Continuar</button>
+    </div>
+    <div id="card75" class="card hidden">
+        <h4 class="text-center">Criaderos según la selección: <span id="razaNombreC"></span></h4>
+        <p class="text-center">Estos son los a la criaderos en los que se encuentra tu raza de perro ideal: </p>
+        <div id="criaderos" class="text-left">
+         </div>
+        <button id="continueButton75" class="btn btn-primary custom-button">Continuar</button>
+    </div>
+
+    <div id="card8" class="card hidden">
+        <h4 class="text-center">Perros de selección: <span id="razaNombre"></span> <de></de> <span id="criaderoNombre"></span></h4>
+        <p class="text-center">Explora todos los perros correspondientes a la categoría seleccionada con sus detalles, fotos y criaderos asociados</p>
+        <div id="move" class="text-left">
+        </div>
+        <button id="continueButton8" class="btn btn-secondary custom-button">Agendar una visita</button>
+    </div>
+
+    <div id="card9" class="card hidden">
+        <h4 class="text-center">Ya casi está todo listo!</h4>
+        <p class="text-center">Valida el detalle para tu visita</p>
+        <div id = "resultado" class="text-left">
+        </div>
+        <button id="continueButton9" class="btn btn-secondary custom-button">Confirmar</button>
+    </div>
+    <div id="card10" class="card hidden">
+        <h4 class="text-center">Registro Exitoso!</h4>
+    </div>
+    <script>
+
+
+
+
+
+        function handleCheckboxClick(checkbox) {
+            const checkboxes = document.querySelectorAll('.checkbox-style');
+            checkboxes.forEach((cb) => {
+                if (cb !== checkbox) {
+                    cb.checked = false;
+                }
+            });
+            document.getElementById('continueButton3').disabled = false;
+        }
+
+        const slider = document.querySelector('.slider');
+        const thumb = document.querySelector('.slider-thumb');
+        const selectedSize = document.getElementById('selectedSize');
+        const slider1 = document.getElementById('pregunta02S');
+        const thumb1 = document.getElementById('pregunta02ST');
+        const selectedSize2 = document.getElementById('selectedSize2');
+        const message = document.getElementById('mesagge');
+        const tituloR = document.getElementById('tituloR');
+        const nomRaza = document.getElementById('nomRaza');
+
+
+
+
+        const continueButton1 = document.getElementById('continueButton1');
+        const enviarButton = document.getElementById('enviarButton');
+        const continueButton2 = document.getElementById('continueButton2');
+        const continueButton3 = document.getElementById('continueButton3');
+        const continueButton4 = document.getElementById('continueButton4');
+        const continueButton5 = document.getElementById('continueButton5');
+        const continueButton6 = document.getElementById('continueButton6');
+        const continueButton7 = document.getElementById('continueButton7');
+        const continueButton75 = document.getElementById('continueButton75');
+        const continueButton8 = document.getElementById('continueButton8');
+        const continueButton9 = document.getElementById('continueButton9');
+
+
+
+
+
+        const container = document.getElementById('container');
+        const card1 = document.getElementById('card1');
+        const card2 = document.getElementById('card2');
+        const card3 = document.getElementById('card3');
+        const card4 = document.getElementById('card4');
+        const card5 = document.getElementById('card5');
+        const card6 = document.getElementById('card6');
+        const card7 = document.getElementById('card7');
+        const card75 = document.getElementById('card75');
+        const card8 = document.getElementById('card8');
+        const card9 = document.getElementById('card9');
+        const card10 = document.getElementById('card10');
+        const move = document.getElementById('move');
+        const resultado = document.getElementById('resultado');
+
+        const id_postulante = document.getElementById('id_postulante');
+
+
+        const criaderos = document.getElementById('criaderos');
+
+
+
+        const image = document.getElementById('image');
+
+        thumb.addEventListener('mousedown', startDragging);
+        thumb1.addEventListener('mousedown', startDragging1);
+
+        window.addEventListener('mouseup', stopDragging);
+
+        function startDragging(event) {
+            event.preventDefault();
+            window.addEventListener('mousemove', moveThumb);
+            window.addEventListener('mouseup', stopDragging);
+        }
+        function startDragging1(event) {
+            event.preventDefault();
+            window.addEventListener('mousemove', moveThumb2);
+            window.addEventListener('mouseup', stopDragging1);
+        }
+        function stopDragging1() {
+            window.removeEventListener('mousemove', moveThumb2);
+        }
+
+        function stopDragging() {
+            window.removeEventListener('mousemove', moveThumb);
+            window.removeEventListener('mousemove', moveThumb2);
+        }
+
+        function moveThumb2(event) {
+            const sliderWidth = slider1.offsetWidth;
+            const sliderLeft = slider1.getBoundingClientRect().left;
+            const position = Math.max(0, Math.min(1, (event.pageX - sliderLeft) / sliderWidth));
+            thumb1.style.left = `${position * 100}%`;
+            const size = getSizeFromPosition1(position);
+            selectedSize2.style.opacity = 0; // Set initial opacity to 0
+            selectedSize2.textContent = `${size}`;
+            selectedSize2.style.transition = 'opacity 5s'; // Add transition property
+            selectedSize2.style.opacity = 1; // Change opacity to 1 to fade in the text
+            selectedSize2.textContent = `${size}`;
+            continueButton2.disabled = false;
+
+        }
+
+
+        function moveThumb(event) {
+            const sliderWidth = slider.offsetWidth;
+            const sliderLeft = slider.getBoundingClientRect().left;
+            const position = Math.max(0, Math.min(1, (event.pageX - sliderLeft) / sliderWidth));
+            thumb.style.left = `${position * 100}%`;
+
+            const size = getSizeFromPosition(position);
+            selectedSize.style.opacity = 0; // Set initial opacity to 0
+            selectedSize.textContent = `${size}`;
+            selectedSize.style.transition = 'opacity 5s'; // Add transition property
+            selectedSize.style.opacity = 1; // Change opacity to 1 to fade in the text
+            selectedSize.textContent = `${size}`;
+
+
+            const imageWidth = `${position * 100}%`;
+            const imageHeigth = `${position * 100}%`;
+            image.style.width = imageWidth;
+            image.style.height = imageHeigth;
+
+            continueButton1.disabled = false;
+        }
+        var tamaño = 0;
+        var hora = 0;
+        var personalidad = "";
+        var habilidad = "";
+        var vivienda = 0;
+        var hogar = 0;
+        var RazaId = 0;
+        var CriaderoId=0;
+        var CriaderoNombre = "";
+        var PerroId=0;
+        var RazaNombre = "";
+        var PostulanteId = 0;
+        var Fecha= "";
+
+
+        function getSizeFromPosition(position) {
+            if (position <= 0.25) {
+                tamaño = 1;
+                return 'Pequeño';
+            } else if (position <= 0.60) {
+                tamaño = 2;
+                return 'Mediano';
+            } else {
+                tamaño = 3;
+                return 'Grande';
+            }
+        }
+
+        function getSizeFromPosition1(position) {
+            if (position <= 0.15) {
+                hora = 0;
+                return 'Menos de una hora al día';
+            } else if (position <= 0.30) {
+                hora = 1;
+                return '1 hora al día';
+            } else if (position <= 0.50) {
+                hora = 3;
+                return '3 horas al día';
+            } else if (position <= 0.70) {
+                hora = 6;
+                return '6 horas al día';
+            } else {
+                hora = 7;
+                return 'Más de 6 horas al día';
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', showForm);
+        function showNextCard1() {
+            card1.classList.add('card-transition');
+            setTimeout(() => {
+                card1.classList.add('hidden');
+                card2.classList.remove('hidden');
+                continueButton1.removeEventListener('click', showNextCard1);
+                continueButton2.addEventListener('click', showNextCard2);
+            }, 750);
+        }
+
+        function showForm(event) {
+            event.preventDefault(); // Evitar que se envíe el formulario por defecto
+
+            setTimeout(function() {
+                /* Aquí va el resto del código de la función showForm */
+
+                container.classList.add('card-transition');
+                setTimeout(function() {
+                    container.classList.add('hidden');
+                    card1.classList.remove('hidden');
+                    continueButton1.addEventListener('click', showNextCard1);
+                }, 750);
+            }, 1000);
+        }
+
+        function showNextCard2() {
+            obtenerTamanoHorasSeleccionados();
+            card2.classList.add('card-transition');
+            setTimeout(() => {
+                card2.classList.add('hidden');
+                card3.classList.remove('hidden');
+                continueButton3.disabled = false;
+                continueButton2.removeEventListener('click', showNextCard2);
+                continueButton3.addEventListener('click', showNextCard3);
+            }, 750);
+        }
+
+        function showNextCard3() {
+            obtenerPersonalidadSeleccionada();
+            card3.classList.add('card-transition');
+            setTimeout(() => {
+                card3.classList.add('hidden');
+                card4.classList.remove('hidden');
+                continueButton4.disabled = false;
+                continueButton3.removeEventListener('click', showNextCard3);
+                continueButton4.addEventListener('click', showNextCard4);
+            }, 750);
+        }
+
+
+        function showNextCard4(){
+            obtenerHabilidadSeleccionada();
+            card4.classList.add('card-transition');
+            setTimeout(() => {
+                card4.classList.add('hidden');
+                card5.classList.remove('hidden');
+                continueButton5.disabled = false;
+                continueButton4.removeEventListener('click', showNextCard4);
+                continueButton5.addEventListener('click', showNextCard5);
+            }, 750);}
+
+        function showNextCard5() {
+            obtenerViviendaSeleccionada();
+            card5.classList.add('card-transition');
+            setTimeout(() => {
+                card5.classList.add('hidden');
+                card6.classList.remove('hidden');
+                continueButton5.removeEventListener('click', showNextCard5);
+                        continueButton6.addEventListener('click', enviarFormulario);
+
+                         }, 750);}
+
+        function showNextCard6() {
+            obtenerHogarSeleccionado()
+            card6.classList.add('card-transition');
+            setTimeout(() => {
+                card6.classList.add('hidden');
+                card7.classList.remove('hidden');
+                continueButton7.addEventListener('click', enviarFormulario3);
+                }, 750);}
+
+        function showNextCard75() {
+            card7.classList.add('card-transition');
+            setTimeout(() => {
+                card7.classList.add('hidden');
+                card75.classList.remove('hidden');
+                continueButton75.addEventListener('click', enviarFormulario2);
+            }, 750);}
+
+        function showNextCard8() {
+            card75.classList.add('card-transition');
+            setTimeout(() => {
+                card75.classList.add('hidden');
+                card8.classList.remove('hidden');
+                continueButton8.addEventListener('click', enviarFormulario4);
+            }, 750);}
+
+        function showNextCard9() {
+            card8.classList.add('card-transition');
+            setTimeout(() => {
+                card8.classList.add('hidden');
+                card9.classList.remove('hidden');
+                continueButton9.addEventListener('click', enviarFormulario5);
+            }, 750);}
+
+
+        function showNextCard10() {
+            card9.classList.add('card-transition');
+            setTimeout(() => {
+                card9.classList.add('hidden');
+                card10.classList.remove('hidden');
+            }, 750);}
+
+
+
+
+
+        function obtenerTamanoHorasSeleccionados() {
+
+            // Realizar cualquier otra operación o lógica con los valores obtenidos
+            console.log("El tamaño seleccionado es: " + tamaño);
+            console.log("Las horas seleccionadas son: " + hora);
+
+
+        }
+
+
+
+
+
+        function obtenerPersonalidadSeleccionada() {
+            // Obtener el valor del checkbox seleccionado
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            var personalidad1 = checkboxes[0].nextElementSibling.textContent;
+            personalidad=personalidad1;
+            var idPostulante = document.getElementById('id_postulante').value;
+            PostulanteId = idPostulante;
+            console.log(PostulanteId)
+            console.log("La personalidad seleccionada es: " + personalidad1);
+
+        }
+
+
+        function obtenerHabilidadSeleccionada() {
+            // Obtener el valor del único checkbox seleccionado en el card4
+            var checkboxes = document.querySelectorAll("input[type='checkbox']:checked");
+            var habilidad1 = checkboxes[0].nextElementSibling.textContent;
+            habilidad = habilidad1;
+            console.log("La habilidad seleccionada es: " + habilidad1);
+
+        }
+
+        function obtenerViviendaSeleccionada() {
+            var radioButtons = document.querySelectorAll("input[type='radio']:checked");
+            var vivienda1 = radioButtons[0].getAttribute("data-value");
+
+            switch (vivienda1) {
+                case "Departamento":
+                    vivienda = 0;
+                    break;
+                default:
+                    vivienda = 1;
+                    break;
+            }
+
+            console.log("La vivienda mapeada es: "+ vivienda1 + vivienda);
+
+            return vivienda;
+        }
+
+        function obtenerHogarSeleccionado() {
+            var radioButtons = document.querySelectorAll("input[type='radio']:checked");
+            var hogar1 = radioButtons[0].getAttribute("data-value");
+
+
+            switch (hogar1) {
+                case "Solo":
+                    hogar = 0;
+                    break;
+                default:
+                    hogar = 1;
+                    break;
+            }
+            console.log("El hogar seleccionado es: " + hogar);
+
+            return hogar1;
+        }
+
+        function obtenerValoresFormulario() {
+
+            var valoresFormulario = {
+                tamano: tamaño,
+                horas: hora,
+                personalidad: personalidad,
+                habilidad: habilidad,
+                vivienda: vivienda,
+                hogar: hogar
+            };
+
+            // Retornar el objeto con los valores del formulario
+            return valoresFormulario;
+        }
+
+        function enviarFormulario3() {
+
+            var url = "/albergue/raza/" + RazaId;
+            console.log(url);
+            fetch(url, {
+                method: 'POST'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("Error en la solicitud: " + response.status);
+                    }
+
+                })
+                .then(data => {
+                    if (data && data.id !== null) {
+                        var criaderos = document.getElementById('criaderos');
+                        criaderos.style.overflow = 'auto';
+                        criaderos.style.maxHeight = '400px';
+                        criaderos.style.display = 'flex';
+                        criaderos.style.justifyContent = 'center';
+                        criaderos.style.alignItems = 'center';
+
+                        for (var i = 0; i < data.length; i++) {
+                            var cardCriadero = document.createElement('div');
+                            cardCriadero.classList.add('raza-criadero');
+                            cardCriadero.style.borderRadius = '10px';
+                            cardCriadero.style.border = '1px solid #ccc';
+                            cardCriadero.style.padding = '10px';
+                            cardCriadero.style.margin = '3px';
+                            cardCriadero.style.marginBottom = '10px';
+
+                            cardCriadero.style.boxShadow = '0px 2px 5px rgba(0, 0, 0, 0.1)';
+                            cardCriadero.style.backgroundColor = '#f9f9f9';
+                            cardCriadero.style.transition = 'box-shadow 0.3s ease-in-out';
+                            cardCriadero.style.width = '300px'; // Ajusta el ancho según tus necesidades
+                            cardCriadero.style.textAlign = 'center'; // Centra el contenido horizontalmente
+
+                            cardCriadero.setAttribute('data-id', data[i].id);
+                            cardCriadero.setAttribute('data-nombre', data[i].nombre)
+                            // Agregar evento de clic al card
+                            cardCriadero.addEventListener('click', function() {
+                                var selectedId = this.getAttribute('data-id'); // Obtener el valor del atributo 'data-id'
+                                var selectedNom = this.getAttribute('data-nombre');
+
+                                // Obtener todos los elementos con la clase 'selected'
+                                var selectedElements = document.getElementsByClassName('selected');
+
+                                // Quitar la clase 'selected' de todos los elementos seleccionados previamente
+                                for (var j = 0; j < selectedElements.length; j++) {
+                                    selectedElements[j].classList.remove('selected');
+                                }
+
+                                // Agregar la clase 'selected' solo al elemento actual
+                                this.classList.add('selected');
+                                CriaderoId = selectedId;
+                                CriaderoNombre = selectedNom;
+                                document.getElementById("razaNombreC").textContent = RazaNombre;
+                                document.getElementById("criaderoNombre").textContent = CriaderoNombre;
+                                console.log("Selected criadero id:", CriaderoId);
+                                console.log("Selected nombre del criadero:", CriaderoNombre);
+
+                            });
+
+                            var imagenCriadero = document.createElement('img');
+                            imagenCriadero.src = "/img/uploads/albergues/" + data[i].foto;
+                            imagenCriadero.style.width = '100px';
+                            imagenCriadero.style.height = '100px';
+                            imagenCriadero.style.margin = '0 auto'; // Centra la imagen horizontalmente
+
+                            cardCriadero.appendChild(imagenCriadero);
+
+                            var nombreCriadero = document.createElement('p');
+                            nombreCriadero.textContent = data[i].nombre;
+                            nombreCriadero.style.fontSize = '80%';
+                            nombreCriadero.style.margin = '10px 0 0'; // Agrega un margen superior
+                            nombreCriadero.style.fontWeight = 'bold'; // Establece el estilo de negritas
+
+
+                            var direccion = document.createElement('p');
+                            direccion.textContent = data[i].direccion;
+                            direccion.style.fontSize = '80%';
+                            direccion.style.margin = '10px 0 0'; // Agrega un margen superior
+
+
+
+                            var boton = document.createElement('button');
+                            boton.textContent = 'Texto del Botón'; // Reemplaza 'Texto del Botón' con el texto que desees mostrar en el botón
+                            boton.classList.add('btn', 'btn-primary'); // Agrega las clases de Bootstrap al botón
+                            boton.style.marginTop = '10px';
+
+                            var enlace = document.createElement('a');
+                            enlace.href = 'https://www.google.com/search?q=' + data[i].direccion; // URL de destino
+                            enlace.target = '_blank'; // Abrir en una nueva pestaña
+                            enlace.appendChild(boton);
+
+                            boton.textContent = 'Ver en Maps';
+
+
+                            cardCriadero.appendChild(nombreCriadero);
+                            cardCriadero.appendChild(direccion);
+                            cardCriadero.appendChild(enlace);
+                            criaderos.appendChild(cardCriadero);
+                        }
+                    }
+                    showNextCard75();
+                    console.log(data['0']);
+                    console.log(data['length']);
+                    console.log(data);
+                })
+        }
+
+        function enviarFormulario4() {
+
+            var url = "/mascotas/id/" + PerroId;
+            console.log(url);
+            fetch(url, {
+                method: 'POST'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("Error en la solicitud: " + response.status);
+                    }
+
+                })
+                .then(data => {
+                    if (data && data.id !== null) {
+                        var cardContainer = document.getElementById('resultado');
+
+                        var sexo = "";
+                        if (data[0].sexo == "M") {
+                            sexo = "Macho";
+                        } else {
+                            sexo = "Hembra";
+                        }
+
+                            var cardResultado = document.createElement('div');
+                            cardResultado.classList.add('resultado-card');
+                            cardResultado.style.display = 'row';
+
+                            var datosPerroT = document.createElement('h4');
+                            datosPerroT.textContent = "Datos del Perro:"
+
+                            cardResultado.appendChild(datosPerroT);
+
+                            var razaPerro = document.createElement('p');
+                            razaPerro.innerHTML = "<strong>Raza:</strong> " + data[0].raza.nombre;
+                            razaPerro.style.marginBottom = '3px';
+                            cardResultado.appendChild(razaPerro);
+
+                            var nombrePerro = document.createElement('p');
+                            nombrePerro.innerHTML = "<strong>Nombre:</strong> " + data[0].nombre;
+                            nombrePerro.style.marginBottom = '3px';
+                            cardResultado.appendChild(nombrePerro);
+
+
+                            var edadPerro = document.createElement('p');
+                            edadPerro.innerHTML = "<strong>Edad:</strong> " + data[0].edad + " años";
+                            edadPerro.style.marginBottom = '3px';
+                            cardResultado.appendChild(edadPerro);
+
+
+                            var sexoPerro = document.createElement('p');
+                            sexoPerro.innerHTML = "<strong>Sexo:</strong> " + sexo + "<br>";
+                            sexoPerro.style.marginBottom = '3px';
+                            cardResultado.appendChild(sexoPerro);
+
+                            var datosCriaderoT = document.createElement('h4');
+                            datosCriaderoT.textContent = "Datos del criadero:"
+                            cardResultado.appendChild(datosCriaderoT);
+
+                        var nombreCriadero = document.createElement('p');
+                        nombreCriadero.innerHTML = "<strong>" + data[0].albergue.nombre + "</strong>";
+                        nombreCriadero.style.marginBottom = '3px';
+                        cardResultado.appendChild(nombreCriadero);
+
+                        var direccionCriadero = document.createElement('p');
+                        direccionCriadero.innerHTML = data[0].albergue.direccion;
+                        direccionCriadero.style.marginBottom = '3px';
+                        cardResultado.appendChild(direccionCriadero);
+
+                        var inputDatetimeLocal = document.createElement("input");
+                        inputDatetimeLocal.type = "datetime-local";
+
+                        inputDatetimeLocal.id = "fechaHoraInput";
+                        inputDatetimeLocal.name = "fechaHora";
+
+                        cardResultado.appendChild(inputDatetimeLocal);
+
+                        cardContainer.appendChild(cardResultado);
+
+
+                    }
+
+                    showNextCard9()
+
+            console.log(data['0']);
+            console.log(data['length']);
+            console.log(data);
+        })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
+        function enviarFormulario5() {
+            var inputDatetimeLocal = document.getElementById("fechaHoraInput");
+            var valorFechaHora = inputDatetimeLocal.value;
+            Fecha = valorFechaHora;
+            console.log(Fecha);
+
+            var url = "/solicitud/mascota/" + PerroId + "/albergue/"+CriaderoId + "/postulante/"+PostulanteId + "/fecha/"+Fecha;
+            console.log(url);
+            fetch(url, {
+                method: 'POST'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("Error en la solicitud: " + response.status);
+                    }
+
+                })
+                .then(data => {
+                    showNextCard10()
+                    console.log(data['0']);
+                    console.log(data['length']);
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
+        function enviarFormulario2() {
+
+            var url = "/mascotas/raza/" + RazaId + "/albergue/"+CriaderoId;
+            console.log(url);
+            fetch(url, {
+                method: 'POST'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("Error en la solicitud: " + response.status);
+                    }
+
+                })
+                .then(data => {
+                    if (data && data.id !== null) {
+                        var cardContainer = document.getElementById('move');
+                        cardContainer.style.overflow = 'auto'; // Agrega una barra de desplazamiento cuando el contenido exceda el tamaño del card
+                        cardContainer.style.maxHeight = '400px'; // Establece una altura máxima para el card (ajusta según tus necesidades)
+                        for (var i = 0; i < data.length; i++) {
+                            var sexo = "";
+                            if (data[i].sexo == "M") {
+                                sexo = "Macho";
+                            } else {
+                                sexo = "Hembra";
+                            }
+
+                            var cardPerro = document.createElement('div');
+                            cardPerro.classList.add('perro-card', 'rounded-card');
+                            cardPerro.style.display = 'flex'; // Agrega estilo flex para distribución horizontal
+
+
+                            var perroInfo = document.createElement('div');
+                            perroInfo.classList.add('perro-info');
+
+                            var nombrePerro = document.createElement('p');
+                            nombrePerro.innerHTML = "<strong>Nombre:</strong> " + data[i].nombre;
+                            nombrePerro.style.marginBottom = '3px';
+
+                            var edadPerro = document.createElement('p');
+                            edadPerro.innerHTML = "<strong>Edad:</strong> " + data[i].edad + " años";
+                            edadPerro.style.marginBottom = '3px';
+
+                            var sexoPerro = document.createElement('p');
+                            sexoPerro.innerHTML = "<strong>Sexo:</strong> " + sexo;
+                            sexoPerro.style.marginBottom = '3px';
+
+                            var pesoPerro = document.createElement('p');
+                            pesoPerro.innerHTML = "<strong>Peso:</strong> " + data[i].peso;
+                            pesoPerro.style.marginBottom = '3px';
+
+                            var descripcionPerro = document.createElement('p');
+                            descripcionPerro.innerHTML = "<strong>Descripción:</strong> " + data[i].descripcion;
+                            descripcionPerro.style.marginBottom = '3px';
+
+                            perroInfo.appendChild(nombrePerro);
+                            perroInfo.appendChild(edadPerro);
+                            perroInfo.appendChild(sexoPerro);
+                            perroInfo.appendChild(pesoPerro);
+                            perroInfo.appendChild(descripcionPerro);
+
+
+                            var perroImage = document.createElement('div');
+                            perroImage.classList.add('perro-image');
+                            perroImage.style.marginLeft = 'auto'; // Añade un margen izquierdo automático para empujar el elemento a la derecha
+
+                            var imagenPerro = document.createElement('img');
+                            imagenPerro.src = "/img/uploads/mascotas/" + data[i].id + ".png";
+                            imagenPerro.style.width = "200px";
+                            imagenPerro.style.height = "200px";
+
+                            perroImage.appendChild(imagenPerro);
+                            cardPerro.appendChild(perroInfo);
+                            cardPerro.appendChild(perroImage);
+                            cardPerro.classList.add('selectable');
+                            cardPerro.setAttribute('data-id', data[i].id);
+                            cardPerro.addEventListener('click', function() {
+                                var selectedId = this.getAttribute('data-id'); // Get the 'data-id' attribute value
+
+
+                                // Obtiene todos los elementos con la clase 'selected'
+                                var selectedElements = document.getElementsByClassName('selected');
+
+                                // Quita la clase 'selected' de todos los elementos seleccionados previamente
+                                for (var i = 0; i < selectedElements.length; i++) {
+                                    selectedElements[i].classList.remove('selected');
+                                }
+
+                                // Agrega la clase 'selected' solo al elemento actua
+                                this.classList.add('selected');
+                                PerroId = selectedId;
+                                console.log("Selected PerroId", PerroId);
+                            });
+
+
+                            cardContainer.appendChild(cardPerro);
+                        }
+                    }
+                    showNextCard8()
+
+                    console.log(data['0']);
+                    console.log(data['length']);
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+        function enviarFormulario() {
+            var valores = obtenerValoresFormulario();
+            console.log(valores);
+
+            var url = "/form/" + valores.tamano + "/" + valores.horas + "/" + valores.personalidad + "/" + valores.habilidad + "/" + valores.vivienda + "/" + valores.hogar;
+
+            // Realizar la llamada al endpoint utilizando la función fetch y el método POST
+            fetch(url, {
+                method: 'POST'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("Error en la solicitud: " + response.status);
+                    }
+
+                })
+                .then(data => {
+                    if (data && data.id !== null) {
+
+
+                            var cardContainer = document.getElementById('card7');
+
+                            for (var i = 0; i < data.length; i++) {
+                                var nombresRazas = data[i].nombre;
+                                console.log(nombresRazas);
+
+                                var cardRaza = document.createElement('div');
+                                cardRaza.classList.add('raza-card'); // Agrega una clase CSS al div del card si es necesario
+
+                                // Crea un elemento h4 para mostrar el nombre de la raza
+                                var nombreRaza = document.createElement('h4');
+                                nombreRaza.textContent = data[i].nombre;
+                                nombreRaza.style.left
+
+
+
+                                // Agrega el elemento h4 al div del card
+                                cardRaza.appendChild(nombreRaza);
+
+                                var imagenRaza = document.createElement('img');
+                                imagenRaza.src = "/img/uploads/raza/" + data[i].id + ".png";
+
+                                cardRaza.classList.add('selectable');
+                                cardRaza.style.display = 'flex';
+                                cardRaza.style.boxSizing = 'border-box'; // Include border in the element's total width and height
+
+                                imagenRaza.style.width = '70px';
+                                imagenRaza.style.height = '70px';
+                                imagenRaza.style.marginLeft = 'auto';
+                                cardRaza.appendChild(imagenRaza);
+
+                                cardRaza.addEventListener('click', function() {
+                                    var selectedId = this.getAttribute('data-id'); // Get the 'data-id' attribute value
+
+
+                                    // Obtiene todos los elementos con la clase 'selected'
+                                    var selectedElements = document.getElementsByClassName('selected');
+
+                                    // Quita la clase 'selected' de todos los elementos seleccionados previamente
+                                    for (var i = 0; i < selectedElements.length; i++) {
+                                        selectedElements[i].classList.remove('selected');
+                                    }
+
+                                    // Agrega la clase 'selected' solo al elemento actua
+                                    this.classList.add('selected');
+                                    RazaId = selectedId;
+                                    console.log("Selected ID:", RazaId);
+                                });
+                                cardRaza.setAttribute('data-id', data[i].id);
+                                cardRaza.addEventListener('click', function() {
+                                    var selectedNombre = this.getAttribute('data-nombre'); // Obtener el valor del atributo 'data-nombre'
+
+                                    // Obtiene todos los elementos con la clase 'selected'
+                                    var selectedElements = document.getElementsByClassName('selected');
+
+                                    // Quita la clase 'selected' de todos los elementos seleccionados previamente
+                                    for (var i = 0; i < selectedElements.length; i++) {
+                                        selectedElements[i].classList.remove('selected');
+                                    }
+                                    // Agrega la clase 'selected' solo al elemento actual
+                                    this.classList.add('selected');
+                                    RazaNombre = selectedNombre;
+                                    document.getElementById("razaNombre").textContent = RazaNombre;
+                                    document.getElementById("razaNombreC").textContent = RazaNombre;
+                                    console.log("Selected Nombre:", RazaNombre);
+                                });
+
+                                cardRaza.setAttribute('data-nombre', data[i].nombre);
+                                cardContainer.insertBefore(cardRaza, document.getElementById('continueButton7'));
+                        }
+                        message.textContent = 'Felicidades!';
+                        tituloR.textContent = 'Estas son las razas a las que calificas'
+                    }
+                    else {
+                        message.textContent = 'Lo sentimos!';
+                    }
+
+                    showNextCard6();
+                    console.log(data['0']);
+                    console.log(data['length']);
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
+
+
+    </script>
+
+</div>
+</body>
+</html>

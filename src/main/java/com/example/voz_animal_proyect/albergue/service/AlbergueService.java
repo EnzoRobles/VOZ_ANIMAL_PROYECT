@@ -14,4 +14,7 @@ public interface AlbergueService {
 
     void eliminarAlbergue (long id);
 
+    List<Albergue> findByRaza(long id);
+
+
 }

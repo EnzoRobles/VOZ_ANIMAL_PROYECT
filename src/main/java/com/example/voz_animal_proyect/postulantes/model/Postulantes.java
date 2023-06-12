@@ -32,10 +32,10 @@ public class Postulantes {
     @Column(name="foto", length = 300 )
     private String foto;
 
-    @Column(name="direccion", length = 300, nullable = false )
+    @Column(name="direccion", length = 300)
     private String direccion;
 
-    @Column(name="puntaje", length = 9, nullable = false)
+    @Column(name="puntaje", length = 9)
     private String puntaje;
 
 

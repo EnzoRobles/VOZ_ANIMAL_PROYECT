@@ -25,6 +25,7 @@ public class PostulanteController {
     private PostulanteService postulanteService;
 
 
+
     @GetMapping("/postulantes")
     public String verPaginaInicio(Model model){
         model.addAttribute("listaPostulantes",postulanteService.listarPostulantes());
@@ -35,7 +36,7 @@ public class PostulanteController {
     public String nuevoPostulantes(Map<String, Object> model){
         Postulantes Postulantes = new Postulantes();
         model.put("postulantes", Postulantes);
-        return  "albergues/nuevoPostulantes";
+        return  "albergues/nuevoPostulante";
     }
 
 

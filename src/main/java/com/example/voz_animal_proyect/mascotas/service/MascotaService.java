@@ -13,4 +13,13 @@ public interface MascotaService {
     Mascotas obtenerMascotasPorId(long id);
 
     void eliminarMascotas (long id);
+
+    List<Mascotas> findByRaza(long id);
+
+    List<Mascotas> obtenerMascotasPorIdLista(long id);
+
+
+
+    List<Mascotas> findByRazaAlbergue(long id, long ida);
+
 }

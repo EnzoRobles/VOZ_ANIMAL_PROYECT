@@ -2,6 +2,7 @@ package com.example.voz_animal_proyect.mascotas.controller;
 
 import com.example.voz_animal_proyect.mascotas.model.Mascotas;
 import com.example.voz_animal_proyect.mascotas.service.MascotaService;
+import com.example.voz_animal_proyect.raza.model.Raza;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 
 
@@ -40,7 +42,7 @@ public class MascotaController {
     @RequestMapping(value = "/guardarMascotas", method = RequestMethod.POST)
     public String guardarMascotas(Mascotas mascotas,@RequestParam("file") MultipartFile foto){
         if(!foto.isEmpty()) {
-            Path directorioRecursos = Paths.get("src//main//resources//static/img/uploads");
+            Path directorioRecursos = Paths.get("src//main//resources//static/img/uploads/mascotas");
             String rootPath = directorioRecursos.toFile().getAbsolutePath();
             try {
                 byte[] bytes = foto.getBytes();
@@ -61,7 +63,7 @@ public class MascotaController {
         Mascotas Mascotas =  mascotaService.obtenerMascotasPorId(id);
 
         String fotoNombre = Mascotas.getFoto();
-        String fotoRuta = "src/main/resources/static/img/uploads/" + fotoNombre;
+        String fotoRuta = "src/main/resources/static/img/uploads/mascotas" + fotoNombre;
 
         File fotoArchivo = new File(fotoRuta);
         if (fotoArchivo.delete()) {
@@ -78,11 +80,10 @@ public class MascotaController {
 
     @GetMapping("/eliminarMascotas/{id}")
     public String eliminarMascotas(@PathVariable(value="id") long id){
-        //en caso no cargue las fotos anotar esto asta aca
-       /* Mascotas Mascotas =  mascotaService.obtenerMascotasPorId(id);
+      Mascotas Mascotas =  mascotaService.obtenerMascotasPorId(id);
 
         String fotoNombre = Mascotas.getFoto();
-        String fotoRuta = "src/main/resources/static/img/uploads/" + fotoNombre;
+        String fotoRuta = "src/main/resources/static/img/uploads/mascotas" + fotoNombre;
 
         // Eliminar el archivo de la foto
         File fotoArchivo = new File(fotoRuta);
@@ -90,10 +91,23 @@ public class MascotaController {
             // Si se eliminó el archivo, también actualizamos el objeto Albergue
             Mascotas.setFoto(null);
             mascotaService.guardarMascotas(Mascotas);
-        }*/
-        //hasta aca
+        }
         mascotaService.eliminarMascotas(id);
         return "redirect:/mascotas";
+    }
+
+    @PostMapping(value = "/mascotas/raza/{id}/albergue/{ida}")
+    @ResponseBody
+    public List<Mascotas> findByRaza (@PathVariable(value="id") int id, @PathVariable(value="ida") int ida) {
+
+        return mascotaService.findByRazaAlbergue(id, ida);
+    }
+
+    @PostMapping(value = "/mascotas/id/{id}")
+    @ResponseBody
+    public List<Mascotas> obtenerMascotasPorIdLista (@PathVariable(value="id") int id) {
+
+        return mascotaService.obtenerMascotasPorIdLista(id);
     }
 
 }
