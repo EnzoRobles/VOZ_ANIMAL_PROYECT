@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html >
 <head>
   <title>Login</title>
   <style>
@@ -78,7 +78,7 @@
 <body>
 <div class="container">
   <div class="title">VOZ ANIMAL</div>
-  <form class="login-form" th:action="@{/login}" method="post">
+  <form class="login-form">
     <div class="form-group">
       <label for="username">Usuario:</label>
       <input type="text" id="username" name="username" placeholder="Ingrese su usuario" required>
@@ -95,5 +95,39 @@
     </div>
   </form>
 </div>
+
+<script>
+  // Código JavaScript para la solicitud POST
+  const form = document.querySelector('.login-form');
+  const url = 'http://localhost:8080/auth/login/';
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    const postUrl = `${url}${username}/${password}`;
+
+    fetch(postUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log('La solicitud POST fue exitosa.');
+          // Puedes acceder al contenido de la respuesta utilizando response.text() o response.json() según el tipo de contenido que recibas.
+          // Ejemplo: response.text().then(console.log);
+        } else {
+          console.log('La solicitud POST falló con el código de estado:', response.status);
+        }
+      })
+      .catch(error => {
+        console.error('Error en la solicitud POST:', error);
+      });
+  });
+</script>
 </body>
 </html>

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Integer, Usuario> {
-    Usuario findByUserName(String usnUs);
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+    Usuario findByNomUsAndContra(String nomUs, String contra );
+
 }
