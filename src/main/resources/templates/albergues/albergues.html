@@ -10,7 +10,11 @@
 
 <div class="container my-2">
     <h1>Listado de Albergues</h1>
-    <a th:href="@{/nuevoAlbergue}" class="btn btn-outline-dark"><img th:src="@{/img/agregar.png}" alt="Agregar" width="30" height="30"/> Agregar Vehiculo</a>
+    <a th:href="@{/nuevoAlbergue}" class="btn btn-outline-dark" data-toggle="modal" data-target="#myModal">
+        <img th:src="@{/img/agregar.png}" alt="Agregar" width="30" height="30"/>
+        Nuevo Albergue
+    </a>
+
     <table class="table table-striped">
         <thead>
         <tr>
