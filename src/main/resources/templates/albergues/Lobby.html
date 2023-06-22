@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <title>Página con barra de navegación y diapositivas</title>
+  <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* Centra los elementos del nav */
+        }
+
+        nav ul li {
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .slideshow-container {
+            position: relative;
+            height: 100vh; /* Ajusta la altura según tus necesidades */
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .login-button {
+            background-color: #fff;
+            color: #333;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-left: auto; /* Mantiene el botón en la esquina derecha */
+        }
+    </style>
+  <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const slides = document.querySelectorAll(".slide");
+            let currentSlide = 0;
+
+            function showSlide() {
+                slides[currentSlide].classList.add("active");
+                setTimeout(hideSlide, 5000); // Cambia a la siguiente diapositiva después de 5 segundos
+            }
+
+            function hideSlide() {
+                slides[currentSlide].classList.remove("active");
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide();
+            }
+
+            showSlide();
+        });
+    </script>
+</head>
+<body>
+<nav>
+  <ul>
+    <li><a href="inicio">Inicio</a></li>
+    <li><a href="form">Formulario</a></li>
+  </ul>
+  <button onclick="window.location.href='/auth/login'" class="login-button">Iniciar sesión</button>
+</nav>
+
+<div class="slideshow-container">
+  <div class="slide">
+    <img src="https://w0.peakpx.com/wallpaper/568/964/HD-wallpaper-of-man-hugging-tan-dog.jpg" alt="Imagen 1">
+  </div>
+  <div class="slide">
+    <img src="https://www.cadenadial.com/wp-content/uploads/2021/12/acariciar-a-un-perro-o-gato-1-1.jpg" alt="Imagen 2">
+  </div>
+  <div class="slide">
+    <img src="https://seguros.roams.es/images/post/es_ES_insurance/1200x304/aseguradoras-divina-pastora-seguro-mascotas.jpg" alt="Imagen 3">
+  </div>
+
+<div class="slide">
+  <img src="https://www.mascotahogar.com/1920x1080/wallpaper-de-perro-husky-siberiano.jpg" alt="Imagen 4">
+</div>
+<div class="slide">
+  <img src="https://img.freepik.com/fotos-premium/pequeno-perrito-bulldog-americano-estudio-gris_155003-30144.jpg?w=900" alt="Imagen 5">
+</div>
+<div class="slide">
+  <img src="https://www.purina-latam.com/sites/default/files/styles/kraken_generic_max_width_960/public/purina-conoce-todo-del-bulldog-frances.jpg?itok=9NATtWio" alt="Imagen 6">
+</div>
+<div class="slide">
+  <img src="https://cnnespanol.cnn.com/wp-content/uploads/2022/05/perro-mas-alto-1.jpg?quality=100&strip=info" alt="Imagen 7">
+</div>
+<div class="slide">
+  <img src="https://e1.pxfuel.com/desktop-wallpaper/888/796/desktop-wallpaper-rottweiler-dog-angry-dog.jpg" alt="Imagen 8">
+</div>
+<div class="slide">
+  <img src="https://imgmedia.wapa.pe/650x368/wapa/original/2021/12/29/61cc67f3c6dee839450991c3.webp" alt="Imagen 9">
+</div>
+</div>
+</div>
+
+<!-- Contenido adicional de la página -->
+
+</body>
+</html>
