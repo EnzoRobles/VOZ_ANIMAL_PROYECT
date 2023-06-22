@@ -24,6 +24,7 @@ public class AlbergueController {
     private AlbergueService albergueService;
 
 
+
     @GetMapping("/albergues")
     public String verPaginaInicio(Model model){
         model.addAttribute("listaAlbergues",albergueService.listarAlbergue());

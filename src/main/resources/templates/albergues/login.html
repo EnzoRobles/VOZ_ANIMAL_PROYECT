@@ -1,13 +1,44 @@
 <!DOCTYPE html>
-<html >
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Login</title>
+  <meta charset="UTF-8">
+  <title>Inicio de Sesión</title>
   <style>
     body {
       background-color: #f0f5f5;
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
+    }
+
+    .slideshow-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .container {
@@ -68,66 +99,126 @@
       color: #47c965;
     }
 
-    @media (max-width: 600px) {
-      .login-form {
-        padding: 20px;
-      }
+    /* Estilos de la ventana emergente de error */
+    .alert-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: bold;
+      z-index: 9999;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      color: #fff;
+      font-size: 18px;
     }
   </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const slides = document.querySelectorAll(".slide");
+      let currentSlide = 0;
+
+      function showSlide() {
+        slides[currentSlide].classList.add("active");
+        setTimeout(hideSlide, 5000); // Cambia a la siguiente diapositiva después de 5 segundos
+      }
+
+      function hideSlide() {
+        slides[currentSlide].classList.remove("active");
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide();
+      }
+
+      showSlide();
+
+      const errorMessage = "[[${errorMessage}]]";
+      if (errorMessage && errorMessage !== "null") {
+        showAlert(errorMessage);
+      }
+
+      function showAlert(message) {
+        const alertContainer = document.createElement("div");
+        alertContainer.classList.add("alert-container");
+
+        const alertBox = document.createElement("div");
+        alertBox.classList.add("alert-box");
+        alertBox.textContent = message;
+
+        const closeButton = document.createElement("span");
+        closeButton.classList.add("close-button");
+        closeButton.textContent = "X";
+        closeButton.addEventListener("click", function() {
+          alertContainer.remove();
+        });
+
+        alertBox.appendChild(closeButton);
+        alertContainer.appendChild(alertBox);
+        document.body.appendChild(alertContainer);
+      }
+    });
+  </script>
 </head>
 <body>
 <div class="container">
-  <div class="title">VOZ ANIMAL</div>
-  <form class="login-form">
+  <h1>Login</h1>
+  <form action="/auth/login" method="post">
     <div class="form-group">
       <label for="username">Usuario:</label>
-      <input type="text" id="username" name="username" placeholder="Ingrese su usuario" required>
+      <input type="text" id="username" name="username" required>
     </div>
+    <br>
     <div class="form-group">
       <label for="password">Contraseña:</label>
-      <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required>
+      <input type="password" id="password" name="password" required>
     </div>
+    <br>
     <div class="form-group">
       <div class="button-container">
         <div class="space" style="flex-grow: 0.5;"></div>
-        <input type="submit" value="INGRESAR">
+        <button type="submit">Acceder</button>
       </div>
     </div>
   </form>
 </div>
 
-<script>
-  // Código JavaScript para la solicitud POST
-  const form = document.querySelector('.login-form');
-  const url = 'http://localhost:8080/auth/login/';
+<div class="slideshow-container">
+  <div class="slide">
+    <img src="https://w0.peakpx.com/wallpaper/568/964/HD-wallpaper-of-man-hugging-tan-dog.jpg" alt="Imagen 1">
+  </div>
+  <div class="slide">
+    <img src="https://www.cadenadial.com/wp-content/uploads/2021/12/acariciar-a-un-perro-o-gato-1-1.jpg" alt="Imagen 2">
+  </div>
+  <div class="slide">
+    <img src="https://seguros.roams.es/images/post/es_ES_insurance/1200x304/aseguradoras-divina-pastora-seguro-mascotas.jpg" alt="Imagen 3">
+  </div>
+    <div class="slide">
+        <img src="https://www.mascotahogar.com/1920x1080/wallpaper-de-perro-husky-siberiano.jpg" alt="Imagen 4">
+    </div>
+    <div class="slide">
+        <img src="https://img.freepik.com/fotos-premium/pequeno-perrito-bulldog-americano-estudio-gris_155003-30144.jpg?w=900" alt="Imagen 5">
+    </div>
+    <div class="slide">
+        <img src="https://www.purina-latam.com/sites/default/files/styles/kraken_generic_max_width_960/public/purina-conoce-todo-del-bulldog-frances.jpg?itok=9NATtWio" alt="Imagen 6">
+    </div>
+    <div class="slide">
+        <img src="https://cnnespanol.cnn.com/wp-content/uploads/2022/05/perro-mas-alto-1.jpg?quality=100&strip=info" alt="Imagen 7">
+    </div>
+    <div class="slide">
+        <img src="https://e1.pxfuel.com/desktop-wallpaper/888/796/desktop-wallpaper-rottweiler-dog-angry-dog.jpg" alt="Imagen 8">
+    </div>
+    <div class="slide">
+        <img src="https://imgmedia.wapa.pe/650x368/wapa/original/2021/12/29/61cc67f3c6dee839450991c3.webp" alt="Imagen 9">
+    </div>
 
-  form.addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    const postUrl = `${url}${username}/${password}`;
-
-    fetch(postUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(response => {
-        if (response.ok) {
-          console.log('La solicitud POST fue exitosa.');
-          // Puedes acceder al contenido de la respuesta utilizando response.text() o response.json() según el tipo de contenido que recibas.
-          // Ejemplo: response.text().then(console.log);
-        } else {
-          console.log('La solicitud POST falló con el código de estado:', response.status);
-        }
-      })
-      .catch(error => {
-        console.error('Error en la solicitud POST:', error);
-      });
-  });
-</script>
+</div>
 </body>
 </html>
