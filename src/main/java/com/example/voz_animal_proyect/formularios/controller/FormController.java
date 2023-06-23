@@ -88,6 +88,15 @@ public class FormController {
         return solicitudVisita;
     }
 
+    @GetMapping("/inicio")
+    public String verInicio(){
 
+        return "albergues/Lobby";
+    }
+    @GetMapping("/lobbyinicio")
+    public String verLobbyInicio(){
+
+        return "albergues/lobbyInicioSesion";
+    }
 
 }

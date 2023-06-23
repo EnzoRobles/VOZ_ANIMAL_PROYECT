@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html>
 <head>
   <title>Página con barra de navegación y diapositivas</title>
   <style>
@@ -121,17 +121,16 @@
     <li class="dropdown">
       <a href="#" class="dropbtn">Albergue</a>
       <div class="dropdown-content">
-        <a th:href="@{albergues.html}">CRUD Albergue</a>
-        <a th:href="@{mascotas.html}">CRUD Mascota</a>
-        <a th:href="#">CRUD Raza</a>
-
+        <a href="albergues">CRUD Albergue</a>
+        <a href="mascotas">CRUD Mascota</a>
+        <a href="razas">CRUD Raza</a>
       </div>
     </li>
     <li class="dropdown">
       <a href="#" class="dropbtn">Personal</a>
       <div class="dropdown-content">
-        <a href="#">CRUD Encargados</a>
-        <a href="#">CRUD Postulantes</a>
+        <a href="encargado">CRUD Encargados</a>
+        <a href="postulantes">CRUD Postulantes</a>
       </div>
     </li>
     <li class="dropdown">
@@ -141,7 +140,7 @@
       </div>
     </li>
   </ul>
-  <button class="login-button">Cerrar sesión</button>
+  <button onclick="window.location.href='/inicio'" class="login-button">Cerrar sesión</button>
 </nav>
 
 <div class="slideshow-container">
