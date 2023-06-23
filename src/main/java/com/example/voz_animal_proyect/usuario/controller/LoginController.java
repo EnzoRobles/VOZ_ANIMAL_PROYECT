@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @Controller
 @RequestMapping("/auth")
 public class LoginController {
@@ -22,6 +24,21 @@ public class LoginController {
     public String registrar() {
         return "auth/frmRegistar";
     }
+
+    @GetMapping("/usuario")
+    public String lista(Model model){
+        model.addAttribute("listaUsuario",usuarioService.listarUsuario());
+        return "albergues/usuario";
+    }
+
+    @GetMapping("/actualizarUsuario/{id}")
+    public String actualizarUsuario(@PathVariable(value = "id") Integer id, Map<String,Object> model){
+        Usuario usuario = usuarioService.obtenerUsuarioPorId(id);
+        usuarioService.saveUser(usuario);
+        model.put("albergue", usuario);
+        return "usuario/actualizarUsuario";
+    }
+
 
     @PostMapping("/guardarUsuario")
     public String gaurdarUsuario(@ModelAttribute Usuario usuario){

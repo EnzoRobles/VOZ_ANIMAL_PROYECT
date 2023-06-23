@@ -5,6 +5,10 @@ import com.example.voz_animal_proyect.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.plaf.PanelUI;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UsuarioServiceImpl implements UsuarioService{
 
@@ -12,7 +16,17 @@ public class UsuarioServiceImpl implements UsuarioService{
     private UsuarioRepository usuarioRepository;
 
 
-
+    @Override
+    public Usuario obtenerUsuarioPorId(Integer id){
+        Optional<Usuario> opcional =  usuarioRepository.findById(id);
+        Usuario usuario;
+        if(opcional.isPresent()){
+            usuario= opcional.get();
+        }else{
+            throw new RuntimeException("Albergue no encontrado para el id: "+id);
+        }
+        return usuario;
+    }
 
     @Override
     public String  findUsuarioByNombre(String nomUs, String contra){
@@ -33,6 +47,10 @@ public class UsuarioServiceImpl implements UsuarioService{
     return usuarioRepository.save(usuario);
     }
 
+    @Override
+    public  List<Usuario> listarUsuario(){
+        return usuarioRepository.findAll();
+    }
 
 
 
