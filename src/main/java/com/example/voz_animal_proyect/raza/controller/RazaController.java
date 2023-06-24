@@ -21,8 +21,47 @@ public class RazaController {
     @Autowired
     private RazaService razaService;
 
+    @GetMapping("/razas")
+    public String PaginaInicio(Model model){
+        model.addAttribute("listarRaza",razaService.listarRaza());
+        return "albergues/razas";
+    }
+
+    @GetMapping("/nuevoRaza")
+    public String nuevoRaza(Model model){
+        Raza raza = new Raza();
+        model.addAttribute("raza",raza);
+        return "albergues/nuevoRaza";
+    }
+
+    @PostMapping("/guardarRaza")
+    public String guardarRaza(@ModelAttribute("razas") Raza raza){
+        razaService.guardarRaza(raza);
+        return "redirect:/razas";
+    }
+
+    /*
     @Autowired
     private PostulanteService postulanteService;
+
+    @GetMapping("/razas")
+    public String PaginaInicio(Model model){
+        model.addAttribute("listarRaza",razaService.listarRaza());
+        return "albergues/razas";
+    }
+
+    @GetMapping("/nuevoRaza")
+    public String nuevoRaza(Model model){
+        Raza raza = new Raza();
+        model.addAttribute("razas",raza);
+        return "albergues/nuevoRaza";
+    }
+
+    @GetMapping("/guardarRaza")
+    public String guardarRaza(@ModelAttribute("razas") Raza raza){
+        razaService.guardarRaza(raza);
+        return "redirect:/razas";
+    }
 
 
 
@@ -36,5 +75,5 @@ public class RazaController {
                                         @PathVariable(value="hogar") int hogar) {
 
         return razaService.findByTamanoAndHorasAndPersonalidadAndHabilidadAndViviendaAndHogar(tamano, horas, personalidad, habilidad, vivienda, hogar);
-    }
+    }*/
 }

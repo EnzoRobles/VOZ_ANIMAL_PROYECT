@@ -8,14 +8,8 @@ import java.util.List;
 public interface RazaService {
 
     List<Raza> listarRaza();
-
     void guardarRaza(Raza raza);
-
-    Raza obtenerRazaPorId(long id);
-
-    void eliminarRaza(long id);
-
-    List<Raza> findByTamanoAndHorasAndPersonalidadAndHabilidadAndViviendaAndHogar(int tamano, int horas, String personalidad, String habilidad, int vivienda, int hogar);
-
-
+    Raza obtenerRaza(long id);
+    /*List<Raza> findByTamanoAndHorasAndPersonalidadAndHabilidadAndViviendaAndHogar(int tamano, int horas, String personalidad, String habilidad, int vivienda, int hogar);
+    */
 }

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Raza</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="text-primary">Administración de Raza</h1>
+    <hr>
+
+    <div class="row">
+        <div class="col-md-6 bg-lightgray">
+            <h2 class="mb-4">Nueva Raza</h2>
+            <form th:action="@{/guardarRaza}" th:object="${raza}" enctype="multipart/form-data" method="post">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="habilidad" class="text-secondary">Habilidad:</label>
+                            <select id="habilidad" name="habRa" class="form-control">
+                                <option value="Inteligente">Inteligente</option>
+                                <option value="Activo">Activo</option>
+                                <option value="Jugueton">Juguetón</option>
+                                <option value="Amigable">Amigable</option>
+                                <option value="Protectivo">Protectivo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="hogar" class="text-secondary">Hogar:</label>
+                            <select id="hogar" name="hogRa" class="form-control">
+                                <option value="0">Solo</option>
+                                <option value="1">En Familia</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="horas" class="text-secondary">Horas:</label>
+                            <input type="text" th:field="*{horRa}" class="form-control" id="horas" placeholder="Horas">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="nombre" class="text-secondary">Nombre:</label>
+                            <input type="text" th:field="*{nomRa}" class="form-control" id="nombre" placeholder="Nombre">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="personalidad" class="text-secondary">Personalidad:</label>
+                            <select id="personalidad" name="perRa" class="form-control">
+                                <option value="Tranquilo">Tranquilo</option>
+                                <option value="Carinoso">Cariñoso</option>
+                                <option value="Dormilon">Dormilón</option>
+                                <option value="Inquieto">Inquieto</option>
+                                <option value="Leal">Leal</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="tamano" class="text-secondary">Tamaño:</label>
+                            <select id="tamano" name="tamRa" class="form-control">
+                                <option value="0">Pequeño</option>
+                                <option value="1">Mediano</option>
+                                <option value="2">Grande</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="vivienda" class="text-secondary">Vivienda:</label>
+                            <select id="vivienda" name="vivRa" class="form-control">
+                                <option value="0">Casa</option>
+                                <option value="1">Departamento</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-info mt-4">Guardar</button>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
