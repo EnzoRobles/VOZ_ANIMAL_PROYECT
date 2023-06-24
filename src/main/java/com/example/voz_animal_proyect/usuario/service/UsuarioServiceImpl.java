@@ -17,13 +17,13 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 
     @Override
-    public Usuario obtenerUsuarioPorId(Integer id){
+    public Usuario obtenerUsuarioPorId(long id){
         Optional<Usuario> opcional =  usuarioRepository.findById(id);
         Usuario usuario;
         if(opcional.isPresent()){
             usuario= opcional.get();
         }else{
-            throw new RuntimeException("Albergue no encontrado para el id: "+id);
+            throw new RuntimeException("Usuario no encontrado para el id: "+id);
         }
         return usuario;
     }
@@ -32,7 +32,7 @@ public class UsuarioServiceImpl implements UsuarioService{
     public String  findUsuarioByNombre(String nomUs, String contra){
 
 
-        Usuario obj = usuarioRepository.findByNomUsAndContra(nomUs, contra);
+        Usuario obj = usuarioRepository.findByUsnUsAndContra(nomUs, contra);
         if(obj!= null){
             return  "Se ha Iniciado Sesión";
         }else{

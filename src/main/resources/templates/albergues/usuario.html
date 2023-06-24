@@ -9,10 +9,10 @@
 <body>
 
 <div class="container my-2">
-    <h1>Listado de Albergues</h1>
-    <a th:href="@{/guardarUsuario}" class="btn btn-outline-dark" data-toggle="modal" data-target="#myModal">
+    <h1>Listado de Usuarios</h1>
+    <a th:href="@{/auth/registrar}" class="btn btn-outline-dark" data-toggle="modal" data-target="#myModal">
         <img th:src="@{/img/agregar.png}" alt="Agregar" width="30" height="30"/>
-        Nuevo Albergue
+        Nuevo Usuario
     </a>
 
     <table class="table table-striped">
@@ -29,7 +29,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="usuario : ${listarUsuario}">
+        <tr th:each="usuario : ${listaUsuario}">
             <td th:text="${usuario.getIdUsuario()}" > </td>
             <td th:text="${usuario.getUsnUs()}" > </td>
             <td th:text="${usuario.getEmail()}" > </td>
@@ -37,13 +37,13 @@
             <td th:text="${usuario.getApeUs()}" ></td>
             <td style="text-align: center; vertical-align: middle;">
                 <div class="bg-image hover-zoom">
-                    <a th:href="@{/actualizarUsuario/{id}(id=${usuario.id})}">
+                    <a th:href="@{/auth/actualizarUsuario/{id}(id=${usuario.idUsuario})}">
                         <img th:src="@{/img/actualizar.png}" alt="Actualizar" width="30" height="30">
                     </a></div>
             </td>
             <td style="text-align: center; vertical-align: middle;">
                 <div class="bg-image hover-zoom">
-                    <a th:href="@{/eliminarUsuario/{id}(id=${usuario.id})}">
+                    <a th:href="@{/auth/eliminarUsuario/{id}(id=${usuario.idUsuario})}">
                         <img th:src="@{/img/eliminar.png}" alt="Eliminar" width="30" height="30">
                     </a>
                 </div>

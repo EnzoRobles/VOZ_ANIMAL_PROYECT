@@ -20,31 +20,36 @@ public class LoginController {
     public String login() {
         return "albergues/login";
     }
-    @GetMapping("/registrar")
-    public String registrar() {
-        return "auth/frmRegistar";
-    }
 
     @GetMapping("/usuario")
-    public String lista(Model model){
+    public String usuarioLista(Model model){
         model.addAttribute("listaUsuario",usuarioService.listarUsuario());
         return "albergues/usuario";
     }
 
-    @GetMapping("/actualizarUsuario/{id}")
-    public String actualizarUsuario(@PathVariable(value = "id") Integer id, Map<String,Object> model){
-        Usuario usuario = usuarioService.obtenerUsuarioPorId(id);
-        usuarioService.saveUser(usuario);
-        model.put("albergue", usuario);
-        return "usuario/actualizarUsuario";
+    @GetMapping("/registrar")
+    public String registrar(Model model) {
+        Usuario usuario = new Usuario();
+        model.addAttribute("usuario", usuario);
+        return "albergues/registrar";
     }
 
 
     @PostMapping("/guardarUsuario")
-    public String gaurdarUsuario(@ModelAttribute Usuario usuario){
+    public String gaurdarUsuario(@ModelAttribute("usuario") Usuario usuario){
         usuarioService.saveUser(usuario);
-        return "auth/login";
+        return "redirect:/auth/usuario";
     }
+
+    @GetMapping("/actualizarUsuario/{id}")
+    public String actualizarUsuario(@PathVariable(value = "id") long id, Model model){
+        Usuario usuario = usuarioService.obtenerUsuarioPorId(id);
+       model.addAttribute("usuario", usuario);
+       return "albergues/actualizarUsuario";
+    }
+
+
+
     @PostMapping(value = "/login")
     public String ValidacionLogin(@RequestParam("username") String username,
                                   @RequestParam("password") String password,

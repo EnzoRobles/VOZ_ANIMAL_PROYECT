@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Actualizar Usuarios</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+</head>
+<body>
+
+<div class="container">
+    <h1> Administración de Usuarios </h1>
+    <div class="row">
+        <div class="col-md-6 bg-lightgray">
+            <h2 class="mb-4">Actualizar Usuarios</h2>
+            <form th:action="@{/auth/guardarUsuario}" th:object="${usuario}" enctype="multipart/form-data" method="post">
+                <input type="hidden" th:field="*{idUsuario}">
+
+                <div class="form-group">
+                    <label for="nom" class="text-secondary">Nombre:</label>
+                    <input type="text" th:field="*{nomUs}" class="form-control" id="nom" placeholder="Nombre">
+                </div>
+
+                <div class="form-group">
+                    <label for="apeUs" class="text-secondary">Apellido:</label>
+                    <input type="text" th:field="*{apeUs}" class="form-control" id="apeUs" placeholder="Apellido">
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="text-secondary">Correo:</label>
+                    <input type="text" th:field="*{email}" class="form-control" id="email" placeholder="Correo">
+                </div>
+
+                <div class="form-group">
+                    <label for="usn" class="text-secondary">Nombre de Usuario:</label>
+                    <input type="text" th:field="*{usnUs}" class="form-control" id="usn" placeholder="Nombre de Usuario">
+                </div>
+
+                <div class="form-group">
+                    <label for="pass" class="text-secondary">Contraseña:</label>
+                    <input type="password" th:field="*{contra}" class="form-control" id="pass" placeholder="Contraseña">
+                </div>
+
+                <button type="submit" class="btn btn-info mt-4">Guardar</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
