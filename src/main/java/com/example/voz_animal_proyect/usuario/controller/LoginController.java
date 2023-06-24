@@ -27,11 +27,11 @@ public class LoginController {
         return "albergues/usuario";
     }
 
-    @GetMapping("/registrar")
+    @GetMapping("/nuevoUsuario")
     public String registrar(Model model) {
         Usuario usuario = new Usuario();
         model.addAttribute("usuario", usuario);
-        return "albergues/registrar";
+        return "albergues/nuevoUsuario";
     }
 
 
