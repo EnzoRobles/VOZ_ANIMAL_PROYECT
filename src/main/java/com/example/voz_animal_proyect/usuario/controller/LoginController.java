@@ -48,6 +48,11 @@ public class LoginController {
        return "albergues/actualizarUsuario";
     }
 
+    @GetMapping("/eliminarUsuario/{id}")
+    public String eliminarUsuario(@PathVariable(value = "id") long id){
+        usuarioService.eliminarUsuario(id);
+        return "redirect:/auth/usuario";
+    }
 
 
     @PostMapping(value = "/login")

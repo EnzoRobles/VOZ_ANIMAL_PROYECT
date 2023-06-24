@@ -15,4 +15,6 @@ public interface UsuarioService {
 
     List<Usuario> listarUsuario();
 
+    void eliminarUsuario(long id);
+
 }
