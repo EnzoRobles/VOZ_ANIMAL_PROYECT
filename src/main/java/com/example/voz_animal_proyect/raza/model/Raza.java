@@ -9,41 +9,69 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-@Table(name="tb_raza")
+
 @Getter
 @Setter
+@Entity
+@Table(name="tb_raza")
 public class Raza {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_raza")
-    private long id;
-
-    @Column(name="nombre", length = 200)
-    private String nombre;
-
-    @Column(name="tamano", length = 1)
-    private int tamano;
-
-    @Column(name="horas", length = 1)
-    private int horas;
-
-    @Column(name="personalidad")
-    private String personalidad;
+    public long idRaza;
 
     @Column(name="habilidad")
-    private String habilidad;
+    public String habRa;
 
-    @Column(name="vivienda")
-    private int vivienda;
+    @Column(name="hogar", length = 1, nullable = false)
+    public int hogRa;
 
-    @Column(name="hogar")
-    private int hogar;
+    @Column(name="horas")
+    public int horRa;
 
-    @OneToMany(mappedBy = "raza")
+    @Column(name="nombre")
+    public String nomRa;
+
+    @Column(name="personalidad")
+    public String perRa;
+
+    @Column(name="tamano", length = 1, nullable = false)
+    public int tamRa;
+
+    @Column(name="vivienda", length = 1, nullable = false)
+    public int vivRa;
+
+    public String HogarRaza(){
+        String hogarRaza = null;
+        switch (hogRa) {
+            case 0 : hogarRaza = "Solo";break;
+            case 1 : hogarRaza = "En Familia";
+        }
+        return hogarRaza;
+    }
+
+    public String TamanoRaza(){
+        String tamanoRaza = null;
+        switch (tamRa) {
+            case 0 : tamanoRaza = "Pequeno";break;
+            case 1 : tamanoRaza = "Mediano";break;
+            case 2 : tamanoRaza = "Grande";
+        }
+        return tamanoRaza;
+    }
+
+    public String ViviendaRaza(){
+        String viviendaRaza = null;
+        switch (vivRa) {
+            case 0 : viviendaRaza = "Casa";break;
+            case 1 : viviendaRaza = "Departamento";
+        }
+        return viviendaRaza;
+    }
+
+    /*@OneToMany(mappedBy = "raza")
     @JsonBackReference
-    private Set<Mascotas> mascotas;
+    public Set<Mascotas> mascotas;*/
 
 
 }

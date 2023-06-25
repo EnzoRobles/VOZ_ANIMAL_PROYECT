@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface RazaRepository extends JpaRepository<Raza,Long> {
 
-    List<Raza> findByTamanoLessThanEqualAndHorasLessThanEqualAndPersonalidadAndHabilidadAndViviendaLessThanEqualAndHogarLessThanEqual(
-            int tamano, int horas, String personalidad, String habilidad, int vivienda, int hogar);
+    /*List<Raza> findByTamanoLessThanEqualAndHorasLessThanEqualAndPersonalidadAndHabilidadAndViviendaLessThanEqualAndHogarLessThanEqual(
+            int tamano, int horas, String personalidad, String habilidad, int vivienda, int hogar);*/
 }

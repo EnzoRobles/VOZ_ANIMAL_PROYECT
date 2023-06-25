@@ -11,8 +11,8 @@
     <h1 class="text-primary">Administración de Albergue</h1>
     <hr>
 
-    <div class="row">
-        <div class="col-md-6 bg-lightgray">
+    <div class="modal-dialog" role="dialog" id="myModal">
+        <div class="modal-content">
             <h2 class="mb-4">Nuevo Albergue</h2>
             <form th:action="@{/guardarAlbergue}" th:object="${albergue}" enctype="multipart/form-data" method="post">
 

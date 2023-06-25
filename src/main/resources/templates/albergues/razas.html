@@ -1,14 +1,44 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Administración de Raza</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 </head>
 <body>
-<ul>
-  <li th:each="raza : ${razas}">
-    <span th:text="${raza.nombre}"></span>
-  </li>
-</ul>
+
+<div class="container my-2">
+    <h1>Listado de Razas</h1>
+    <a th:href="@{/nuevoRaza}" class="btn btn-outline-dark"><img th:src="@{/img/agregar.png}" alt="Agregar" width="30" height="30"/> Agregar Raza</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id de Raza</th>
+            <th>Habilidad</th>
+            <th>Hogar</th>
+            <th>Horas</th>
+            <th>Nombre</th>
+            <th>Personalidad</th>
+            <th>Tamaño</th>
+            <th>Vivienda</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="raza : ${listarRaza}">
+            <td th:text="${raza.getIdRaza()}" > </td>
+            <td th:text="${raza.getHabRa()}" > </td>
+            <td th:text="${raza.HogarRaza()}" > </td>
+            <td th:text="${raza.getHorRa()}" > </td>
+            <td th:text="${raza.getNomRa()}" > </td>
+            <td th:text="${raza.getPerRa()}" > </td>
+            <td th:text="${raza.TamanoRaza()}" > </td>
+            <td th:text="${raza.ViviendaRaza()}" > </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

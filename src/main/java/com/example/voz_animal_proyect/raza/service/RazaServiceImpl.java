@@ -20,28 +20,23 @@ public class RazaServiceImpl implements RazaService{
     }
 
     @Override
-    public void guardarRaza(Raza raza) {
-        razaRepository.save(raza);
+    public void guardarRaza(Raza raza) { razaRepository.save(raza);
     }
 
     @Override
-    public Raza obtenerRazaPorId(long id) {
+    public Raza obtenerRaza(long id) {
         Optional<Raza> opcional = razaRepository.findById(id);
         Raza raza;
         if(opcional.isPresent()){
             raza= opcional.get();
         }else{
-            throw new RuntimeException("Raza no encontrado para el id: "+id);
+            throw new RuntimeException("Raza no encontrada por el id: "+id);
         }
-        return raza;    }
-
-    @Override
-    public void eliminarRaza(long id) {
-        razaRepository.deleteById(id);
+        return raza;
     }
 
-    @Override
+    /*@Override
     public List<Raza> findByTamanoAndHorasAndPersonalidadAndHabilidadAndViviendaAndHogar(int tamano, int horas, String personalidad, String habilidad, int vivienda, int hogar) {
         return razaRepository.findByTamanoLessThanEqualAndHorasLessThanEqualAndPersonalidadAndHabilidadAndViviendaLessThanEqualAndHogarLessThanEqual(tamano, horas, personalidad, habilidad, vivienda, hogar);
-    }
+    }*/
 }
