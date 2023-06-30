@@ -1,56 +1,339 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
-  <title>Nuevo Usuario</title>
+  <title>Administración de Albergues</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <style>
+        .centered-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* Centra los elementos del nav */
+        }
+
+        nav ul li {
+            margin-right: 10px;
+            position: relative; /* Agregado para posicionar correctamente el dropdown */
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: black;
+            color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        nav ul li:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            transition-delay: 0.3s; /* Añadido para retrasar la aparición del dropdown */
+        }
+
+        .slideshow-container {
+            position: relative;
+            height: 100vh; /* Ajusta la altura según tus necesidades */
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .login-button {
+            background-color: #fff;
+            color: #333;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-left: auto; /* Mantiene el botón en la esquina derecha */
+        }
+
+        .card-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            text-align: center;
+        }
+
+    .container {
+        display: flex;
+        width: 100%
+    }
+
+    .column {
+        flex: 1;
+        margin: 13px;
+        }
+
+    .card-body {
+        width: 800px;
+    }
+
+    div.modal-content {
+        width: 150%;
+        right: 25%;
+    }
+
+
+
+
+    </style>
+
 </head>
+
 <body>
+<nav>
+  <ul>
+    <li><a href="#">Inicio</a></li>
+    <li class="dropdown">
+      <a href="#" class="dropbtn">Albergue</a>
+      <div class="dropdown-content">
+        <a href="albergues">CRUD Albergue</a>
+        <a href="mascotas">CRUD Mascota</a>
+        <a href="razas">CRUD Raza</a>
+      </div>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropbtn">Personal</a>
+      <div class="dropdown-content">
+        <a href="encargado">CRUD Encargados</a>
+        <a href="postulantes">CRUD Postulantes</a>
+      </div>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropbtn">Usuario</a>
+      <div class="dropdown-content">
+        <a href="auth/usuario">CRUD Usuarios</a>
+        <a href="solicitud">CRUD Solicitudes</a>
+      </div>
+    </li>
+  </ul>
+  <button onclick="window.location.href='/inicio'" class="login-button">Cerrar sesión</button>
+</nav>
 
-<div class="container">
-  <h1 class="text-primary">Administración de Usuario</h1>
-  <hr>
+<div class="slideshow-container">
+  <div class="slide active">
+    <img src="https://w0.peakpx.com/wallpaper/568/964/HD-wallpaper-of-man-hugging-tan-dog.jpg" alt="Slide 1">
+  </div>
+  <div class="slide">
+    <img src="https://www.cadenadial.com/wp-content/uploads/2021/12/acariciar-a-un-perro-o-gato-1-1.jpg" alt="Imagen 2">
+  </div>
+  <div class="slide">
+    <img src="https://seguros.roams.es/images/post/es_ES_insurance/1200x304/aseguradoras-divina-pastora-seguro-mascotas.jpg" alt="Imagen 3">
+  </div>
+  <div class="slide">
+    <img src="https://www.mascotahogar.com/1920x1080/wallpaper-de-perro-husky-siberiano.jpg" alt="Imagen 4">
+  </div>
+  <div class="slide">
+    <img src="https://img.freepik.com/fotos-premium/pequeno-perrito-bulldog-americano-estudio-gris_155003-30144.jpg?w=900" alt="Imagen 5">
+  </div>
+  <div class="slide">
+    <img src="https://cnnespanol.cnn.com/wp-content/uploads/2022/05/perro-mas-alto-1.jpg?quality=100&strip=info" alt="Imagen 7">
+  </div>
+  <div class="slide">
+    <img src="https://e1.pxfuel.com/desktop-wallpaper/888/796/desktop-wallpaper-rottweiler-dog-angry-dog.jpg" alt="Imagen 8">
+  </div>
+  <div class="slide">
+    <img src="https://imgmedia.wapa.pe/650x368/wapa/original/2021/12/29/61cc67f3c6dee839450991c3.webp" alt="Imagen 9">
+  </div>
 
-  <div class="row">
-    <div class="col-md-6 bg-lightgray">
-      <h2 class="mb-4">Nuevo Usuario</h2>
-      <form th:action="@{/auth/guardarUsuario}" th:object="${usuario}" enctype="multipart/form-data" method="post">
+  <div class="card-container">
+    <div class="container my-2 centered-title">
+      <div class="card">
+        <div class="card-body">
 
-        <div class="form-group">
-          <label for="nombre" class="text-secondary">Nombre:</label>
-          <input type="text" th:field="*{nomUs}" class="form-control" id="nombre" placeholder="Nombre">
+
+
+
+          <!--                Titulo azul(lo que esta debajo del div class="container")-->
+
+          <h1 class="text-primary">Administración de Usuario</h1>
+          <hr>
+
+
+
+          <!--                Titulo del Cuadro(solo copiar el h2)-->
+
+          <div class="modal-dialog" role="dialog" id="myModal">
+            <div class="modal-content">
+              <br>
+              <h2 class="mb-4">Nuevo Usuario</h2>
+
+
+              <!--                            Inicio del form-->
+              <form th:action="@{/auth/guardarUsuario}" th:object="${usuario}" enctype="multipart/form-data" method="post">
+
+
+                <!--                                Container(new)-->
+                <div class="container">
+
+                  <!--                                    Primera columna(new)-->
+                  <div class="column">
+
+                    <!--                                Elementos de la izq(arriba hacia abajo)-->
+                    <div class="form-group">
+                      <label for="nombre" class="text-secondary">Nombre:</label>
+                      <input type="text" th:field="*{nomUs}" class="form-control" id="nombre" placeholder="Nombre">
+                    </div>
+                    <br>
+
+
+                    <div class="form-group">
+                      <label for="usn" class="text-secondary">Nombre de Usuario:</label>
+                      <input type="text" th:field="*{usnUs}" class="form-control" id="usn" placeholder="Nombre de Usuario">
+                    </div>
+
+
+
+                    <!--                                Cierre de la primera columna        -->
+                  </div>
+
+
+                  <!--                            Segunda columna(new)    -->
+
+                  <div class="column">
+
+                    <!--                            Elementos de la derecha-->
+                    <div class="form-group">
+                      <label for="apeUs" class="text-secondary">Apellido:</label>
+                      <input type="text" th:field="*{apeUs}" class="form-control" id="apeUs" placeholder="Apellido">
+                    </div>
+                    <br>
+
+
+                    <div class="form-group">
+                      <label for="pass" class="text-secondary">Contraseña:</label>
+                      <input type="password" th:field="*{contra}" class="form-control" id="pass" placeholder="Contraseña">
+                    </div>
+
+
+                    <!--                            Cierre de la segunda columna-->
+                  </div>
+
+
+
+                  <!--  3ra columna(new)    -->
+
+                  <div class="column">
+
+                    <!--                            Elementos de la derecha-->
+                    <div class="form-group">
+                      <label for="email" class="text-secondary">Email:</label>
+                      <input type="text" th:field="*{email}" class="form-control" id="email" placeholder="Correo">
+                    </div>
+
+
+                    <!--Cierre de la 3ra columna-->
+                  </div>
+
+
+                  <!--                                    Cierre del container(new)-->
+                </div>
+
+
+                <!--                                Boton fuera del container(el q esta despues de todos los div)-->
+                <button type="submit" class="btn btn-info mt-4" style="width: 150px;">Guardar</button>
+
+
+
+                <!--  Cierre del form   -->
+              </form>
+              <br>
+
+
+
+
+
+            </div>
+
+            <div class="col-md-6">
+              <!-- Aquí se puede agregar contenido adicional si se desea -->
+            </div>
+          </div>
+
+
+
+
+
+
+
+
         </div>
-
-        <div class="form-group">
-          <label for="apeUs" class="text-secondary">Apellido:</label>
-          <input type="text" th:field="*{apeUs}" class="form-control" id="apeUs" placeholder="Apellido">
-        </div>
-
-        <div class="form-group">
-          <label for="email" class="text-secondary">Email:</label>
-          <input type="text" th:field="*{email}" class="form-control" id="email" placeholder="Correo">
-        </div>
-
-        <div class="form-group">
-          <label for="usn" class="text-secondary">Nombre de Usuario:</label>
-          <input type="text" th:field="*{usnUs}" class="form-control" id="usn" placeholder="Nombre de Usuario">
-        </div>
-
-        <div class="form-group">
-          <label for="pass" class="text-secondary">Contraseña:</label>
-          <input type="password" th:field="*{contra}" class="form-control" id="pass" placeholder="Contraseña">
-        </div>
-
-        <button type="submit" class="btn btn-info mt-4">Guardar</button>
-
-      </form>
-    </div>
-
-    <div class="col-md-6">
-      <!-- Aquí se puede agregar contenido adicional si se desea -->
+      </div>
     </div>
   </div>
+
 </div>
 
+<script>
+    var slides = document.querySelectorAll(".slide");
+    var currentSlide = 0;
+    var slideInterval = setInterval(nextSlide, 5000);
+
+    function nextSlide() {
+        slides[currentSlide].className = "slide";
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].className = "slide active";
+    }
+</script>
+
 </body>
+
 </html>

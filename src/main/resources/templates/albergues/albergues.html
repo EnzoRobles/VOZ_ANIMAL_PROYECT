@@ -5,56 +5,278 @@
     <meta charset="UTF-8">
     <title>Administración de Albergues</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        .centered-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* Centra los elementos del nav */
+        }
+
+        nav ul li {
+            margin-right: 10px;
+            position: relative; /* Agregado para posicionar correctamente el dropdown */
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: black;
+            color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        nav ul li:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            transition-delay: 0.3s; /* Añadido para retrasar la aparición del dropdown */
+        }
+
+        .slideshow-container {
+            position: relative;
+            height: 100vh; /* Ajusta la altura según tus necesidades */
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .login-button {
+            background-color: #fff;
+            color: #333;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-left: auto; /* Mantiene el botón en la esquina derecha */
+        }
+
+        .card-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            text-align: center;
+        }
+
+    .container {
+        display: flex;
+        width: 100%
+    }
+
+    .column {
+        flex: 1;
+        margin: 13px;
+        }
+
+    .card-body {
+        width: 800px;
+    }
+
+    div.modal-content {
+        width: 150%;
+        right: 25%;
+    }
+
+
+
+
+    </style>
+
 </head>
+
 <body>
+<nav>
+    <ul>
+        <li><a href="#">Inicio</a></li>
+        <li class="dropdown">
+            <a href="#" class="dropbtn">Albergue</a>
+            <div class="dropdown-content">
+                <a href="albergues">CRUD Albergue</a>
+                <a href="mascotas">CRUD Mascota</a>
+                <a href="razas">CRUD Raza</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropbtn">Personal</a>
+            <div class="dropdown-content">
+                <a href="encargado">CRUD Encargados</a>
+                <a href="postulantes">CRUD Postulantes</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropbtn">Usuario</a>
+            <div class="dropdown-content">
+                <a href="auth/usuario">CRUD Usuarios</a>
+                <a href="solicitud">CRUD Solicitudes</a>
+            </div>
+        </li>
+    </ul>
+    <button onclick="window.location.href='/inicio'" class="login-button">Cerrar sesión</button>
+</nav>
 
-<div class="container my-2">
-    <h1>Listado de Albergues</h1>
-    <a th:href="@{/nuevoAlbergue}" class="btn btn-outline-dark" data-toggle="modal" data-target="#myModal">
-        <img th:src="@{/img/agregar.png}" alt="Agregar" width="30" height="30"/>
-        Nuevo Albergue
-    </a>
+<div class="slideshow-container">
+    <div class="slide active">
+        <img src="https://w0.peakpx.com/wallpaper/568/964/HD-wallpaper-of-man-hugging-tan-dog.jpg" alt="Slide 1">
+    </div>
+    <div class="slide">
+        <img src="https://www.cadenadial.com/wp-content/uploads/2021/12/acariciar-a-un-perro-o-gato-1-1.jpg" alt="Imagen 2">
+    </div>
+    <div class="slide">
+        <img src="https://seguros.roams.es/images/post/es_ES_insurance/1200x304/aseguradoras-divina-pastora-seguro-mascotas.jpg" alt="Imagen 3">
+    </div>
+    <div class="slide">
+        <img src="https://www.mascotahogar.com/1920x1080/wallpaper-de-perro-husky-siberiano.jpg" alt="Imagen 4">
+    </div>
+    <div class="slide">
+        <img src="https://img.freepik.com/fotos-premium/pequeno-perrito-bulldog-americano-estudio-gris_155003-30144.jpg?w=900" alt="Imagen 5">
+    </div>
+    <div class="slide">
+        <img src="https://cnnespanol.cnn.com/wp-content/uploads/2022/05/perro-mas-alto-1.jpg?quality=100&strip=info" alt="Imagen 7">
+    </div>
+    <div class="slide">
+        <img src="https://e1.pxfuel.com/desktop-wallpaper/888/796/desktop-wallpaper-rottweiler-dog-angry-dog.jpg" alt="Imagen 8">
+    </div>
+    <div class="slide">
+        <img src="https://imgmedia.wapa.pe/650x368/wapa/original/2021/12/29/61cc67f3c6dee839450991c3.webp" alt="Imagen 9">
+    </div>
 
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Id de Albergue</th>
-            <th>Dirección</th>
-            <th>Foto</th>
-            <th>Nombre</th>
-            <th>Telefono</th>
-            <th>Estado</th>
-            <th>Actualizar</th>
-            <th>Eliminar</th>
+    <div class="card-container">
+        <div class="container my-2 centered-title">
+            <div class="card">
+                <div class="card-body">
 
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="albergue : ${listaAlbergues}">
-            <td th:text="${albergue.getId()}" > </td>
-            <td th:text="${albergue.getDireccion()}" > </td>
-            <td style="text-align: center; vertical-align: middle;">
-                <img th:src="@{/img/uploads/albergues/__${albergue.foto}__}" width="30" height="30">
-            </td>
-            <td th:text="${albergue.getNombre()}" > </td>
-            <td th:text="${albergue.getTelefono()}" > </td>
-            <td th:text="${albergue.NombreEstado()}" ></td>
-            <td style="text-align: center; vertical-align: middle;">
-                <div class="bg-image hover-zoom">
-                <a th:href="@{/actualizarAlbergue/{id}(id=${albergue.id})}">
-                    <img th:src="@{/img/actualizar.png}" alt="Actualizar" width="30" height="30">
-                </a></div>
-            </td>
-            <td style="text-align: center; vertical-align: middle;">
-                <div class="bg-image hover-zoom">
-                <a th:href="@{/eliminarAlbergue/{id}(id=${albergue.id})}">
-                    <img th:src="@{/img/eliminar.png}" alt="Eliminar" width="30" height="30">
-                </a>
+
+
+
+                    <!--                Titulo azul(lo que esta debajo del div class="container")-->
+
+                    <h1>Listado de Albergues</h1>
+                    <a th:href="@{/nuevoAlbergue}" class="btn btn-outline-dark" data-toggle="modal" data-target="#myModal" style="margin: 10px;">
+                        <img th:src="@{/img/agregar.png}" alt="Agregar" width="30" height="30"/>
+                        Nuevo Albergue
+                    </a>
+
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Id de Albergue</th>
+                            <th>Dirección</th>
+                            <th>Foto</th>
+                            <th>Nombre</th>
+                            <th>Telefono</th>
+                            <th>Estado</th>
+                            <th>Actualizar</th>
+                            <th>Eliminar</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="albergue : ${listaAlbergues}">
+                            <td th:text="${albergue.getId()}" > </td>
+                            <td th:text="${albergue.getDireccion()}" > </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                <img th:src="@{/img/uploads/albergues/__${albergue.foto}__}" width="30" height="30">
+                            </td>
+                            <td th:text="${albergue.getNombre()}" > </td>
+                            <td th:text="${albergue.getTelefono()}" > </td>
+                            <td th:text="${albergue.NombreEstado()}" ></td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                <div class="bg-image hover-zoom">
+                                    <a th:href="@{/actualizarAlbergue/{id}(id=${albergue.id})}">
+                                        <img th:src="@{/img/actualizar.png}" alt="Actualizar" width="30" height="30">
+                                    </a></div>
+                            </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                <div class="bg-image hover-zoom">
+                                    <a th:href="@{/eliminarAlbergue/{id}(id=${albergue.id})}">
+                                        <img th:src="@{/img/eliminar.png}" alt="Eliminar" width="30" height="30">
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+
+
+
+
+
+
                 </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<script>
+    var slides = document.querySelectorAll(".slide");
+    var currentSlide = 0;
+    var slideInterval = setInterval(nextSlide, 5000);
+
+    function nextSlide() {
+        slides[currentSlide].className = "slide";
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].className = "slide active";
+    }
+</script>
+
 </body>
+
 </html>

@@ -84,7 +84,7 @@ public class AlbergueController {
         return "albergues/actualizarAlbergue";
     }
 
-    /*
+
     @GetMapping("/eliminarAlbergue/{id}")
     public String eliminarAlbergue(@PathVariable(value="id") long id){
        //en caso no cargue las fotos anotar esto asta aca
@@ -103,7 +103,7 @@ public class AlbergueController {
         //hasta aca
         albergueService.eliminarAlbergue(id);
         return "redirect:/albergues";
-    }*/
+    }
 }
 
 
