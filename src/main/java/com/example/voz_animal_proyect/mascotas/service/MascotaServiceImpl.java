@@ -19,7 +19,6 @@ public class MascotaServiceImpl implements MascotaService {
     private MascotaRepository mascotaRepository;
     @Autowired
     private AlbergueRepository albergueRepository;
-
     @Autowired
     private RazaRepository razaRepository;
 
@@ -58,14 +57,14 @@ public class MascotaServiceImpl implements MascotaService {
 
             return mascotas;
         } else {
-            throw new InvalidDataAccessApiUsageException("Mensaje de la excepción");        }
+            throw new InvalidDataAccessApiUsageException("Raza no encontrada por el ID" + id);        }
 
     }
 
     @Override
     public List<Mascotas> findByRazaAlbergue(long id, long ida) {
-        Raza raza = razaRepository.findById(id).orElseThrow(() -> new InvalidDataAccessApiUsageException("Mensaje de la excepción"));
-        Albergue albergue = albergueRepository.findById(ida).orElseThrow(() -> new InvalidDataAccessApiUsageException("Mensaje de la excepción"));
+        Raza raza = razaRepository.findById(id).orElseThrow(() -> new InvalidDataAccessApiUsageException("Raza no encontrada por el ID" + id));
+        Albergue albergue = albergueRepository.findById(ida).orElseThrow(() -> new InvalidDataAccessApiUsageException("Albergue no encontrado por el ID" + ida ));
         return mascotaRepository.findByRazaAndAlbergue(raza, albergue);
     }
 

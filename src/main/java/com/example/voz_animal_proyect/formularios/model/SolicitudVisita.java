@@ -43,4 +43,24 @@ public class SolicitudVisita {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date date;
 
+    @Transient
+    private String nombreAlbergue;
+
+    @Transient
+    private String nombreMascota;
+
+    @Transient
+    private String nombrePostulante;
+    @PostLoad
+    public void loadNames() {
+        if (albergue != null) {
+           nombreAlbergue  = albergue.getNombre();
+        }
+        if (mascotas != null) {
+            nombreMascota = mascotas.getNombre();
+        }
+        if (postulantes != null) {
+            nombrePostulante = postulantes.getNombre();
+        }
+    }
 }

@@ -1,8 +1,11 @@
 package com.example.voz_animal_proyect.mascotas.controller;
 
+import com.example.voz_animal_proyect.albergue.model.Albergue;
+import com.example.voz_animal_proyect.albergue.service.AlbergueService;
 import com.example.voz_animal_proyect.mascotas.model.Mascotas;
 import com.example.voz_animal_proyect.mascotas.service.MascotaService;
 import com.example.voz_animal_proyect.raza.model.Raza;
+import com.example.voz_animal_proyect.raza.service.RazaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +27,12 @@ public class MascotaController {
     @Autowired
     private MascotaService mascotaService;
 
+    @Autowired
+    private AlbergueService albergueService;
+
+    @Autowired
+    private RazaService razaService;
+
 
     @GetMapping("/mascotas")
     public String verPaginaInicio(Model model){
@@ -32,9 +41,11 @@ public class MascotaController {
     }
 
     @GetMapping("/nuevoMascotas")
-    public String nuevoMascotas(Map<String, Object> model){
+    public String nuevoMascotas(Map<String, Object> model, Model m){
         Mascotas Mascotas = new Mascotas();
         model.put("mascotas", Mascotas);
+        m.addAttribute("listaAlbergue",albergueService.listarAlbergue());
+        m.addAttribute("listaRaza",razaService.listarRaza());
         return  "albergues/nuevoMascotas";
     }
 
@@ -59,7 +70,7 @@ public class MascotaController {
     }
 
     @GetMapping("/actualizarMascotas/{id}")
-    public String actualizarMascotas(@PathVariable(value="id") long id, Map<String, Object>  model){
+    public String actualizarMascotas(@PathVariable(value="id") long id, Map<String, Object>  model, Model m){
         Mascotas Mascotas =  mascotaService.obtenerMascotasPorId(id);
 
         String fotoNombre = Mascotas.getFoto();
@@ -73,7 +84,8 @@ public class MascotaController {
         } else {
             model.put("mensaje", "No se pudo eliminar la foto");
         }
-
+        m.addAttribute("listaAlbergue", albergueService.listarAlbergue());
+        m.addAttribute("listaRaza", razaService.listarRaza());
         model.put("mascotas", Mascotas);
         return "albergues/actualizarMascotas";
     }

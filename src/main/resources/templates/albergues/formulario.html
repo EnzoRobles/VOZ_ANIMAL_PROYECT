@@ -943,7 +943,7 @@
                             cardResultado.appendChild(datosPerroT);
 
                             var razaPerro = document.createElement('p');
-                            razaPerro.innerHTML = "<strong>Raza:</strong> " + data[0].raza.nombre;
+                            razaPerro.innerHTML = "<strong>Raza:</strong> " + data[0].raza.nomRa;
                             razaPerro.style.marginBottom = '3px';
                             cardResultado.appendChild(razaPerro);
 
@@ -1142,6 +1142,7 @@
                 });
         }
         function enviarFormulario() {
+            obtenerHogarSeleccionado();
             var valores = obtenerValoresFormulario();
             console.log(valores);
 
@@ -1166,7 +1167,7 @@
                             var cardContainer = document.getElementById('card7');
 
                             for (var i = 0; i < data.length; i++) {
-                                var nombresRazas = data[i].nombre;
+                                var nombresRazas = data[i].nomRa;
                                 console.log(nombresRazas);
 
                                 var cardRaza = document.createElement('div');
@@ -1174,7 +1175,7 @@
 
                                 // Crea un elemento h4 para mostrar el nombre de la raza
                                 var nombreRaza = document.createElement('h4');
-                                nombreRaza.textContent = data[i].nombre;
+                                nombreRaza.textContent = data[i].nomRa;
                                 nombreRaza.style.left
 
 
@@ -1183,7 +1184,7 @@
                                 cardRaza.appendChild(nombreRaza);
 
                                 var imagenRaza = document.createElement('img');
-                                imagenRaza.src = "/img/uploads/raza/" + data[i].id + ".png";
+                                imagenRaza.src = "/img/uploads/raza/" + data[i].idRaza + ".png";
 
                                 cardRaza.classList.add('selectable');
                                 cardRaza.style.display = 'flex';
@@ -1211,7 +1212,7 @@
                                     RazaId = selectedId;
                                     console.log("Selected ID:", RazaId);
                                 });
-                                cardRaza.setAttribute('data-id', data[i].id);
+                                cardRaza.setAttribute('data-id', data[i].idRaza);
                                 cardRaza.addEventListener('click', function() {
                                     var selectedNombre = this.getAttribute('data-nombre'); // Obtener el valor del atributo 'data-nombre'
 
@@ -1230,7 +1231,7 @@
                                     console.log("Selected Nombre:", RazaNombre);
                                 });
 
-                                cardRaza.setAttribute('data-nombre', data[i].nombre);
+                                cardRaza.setAttribute('data-nombre', data[i].nomRa);
                                 cardContainer.insertBefore(cardRaza, document.getElementById('continueButton7'));
                         }
                         message.textContent = 'Felicidades!';

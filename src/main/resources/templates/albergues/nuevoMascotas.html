@@ -18,9 +18,29 @@
             <form th:action="@{/guardarMascotas}" th:object="${mascotas}" enctype="multipart/form-data" method="post">
 
                 <div class="form-group">
-                    <label for="Raza" class="text-secondary">Raza:</label>
-                    <input type="text" th:field="*{raza}" class="form-control" id="raza" placeholder="raza">
+                    <label for="raza">Raza:</label>
+                    <select id="raza" th:field="*{raza.idRaza}" class="form-control">
+
+                        <option selected value="0">Seleccione...</option>
+
+                        <option th:each="r:${listaRaza}"
+                                th:value="${r.idRaza}"
+                                th:text="${r.nomRa}"></option>
+
+                    </select>
                 </div>
+                    <div class="form-group">
+                        <label for="albergue">Albergue:</label>
+                        <select id="albergue" th:field="*{albergue.id}" class="form-control">
+
+                            <option selected value="0">Seleccione...</option>
+
+                            <option th:each="a:${listaAlbergue}"
+                                    th:value="${a.id}"
+                                    th:text="${a.nombre}"></option>
+
+                        </select>
+                    </div>
                 <div class="form-group">
                     <label for="Descripcion" class="text-secondary">Descripcion:</label>
                     <input type="text" th:field="*{descripcion}" class="form-control" id="descripcion" placeholder="descripcion">
@@ -44,7 +64,10 @@
                     <label for="edad" class="text-secondary">Edad:</label>
                     <input type="text" th:field="*{edad}" class="form-control" id="edad" placeholder="Edad">
                 </div>
-
+                <div class="form-group">
+                    <label for="peso" class="text-secondary">Peso:</label>
+                    <input type="text" th:field="*{peso}" class="form-control" id="peso" placeholder="Peso">
+                </div>
                 <div class="form-group">
                     <label for="estado" class="text-secondary">Estado:</label>
                     <input type="text" th:field="*{estado}" class="form-control" id="estado" placeholder="Estado">

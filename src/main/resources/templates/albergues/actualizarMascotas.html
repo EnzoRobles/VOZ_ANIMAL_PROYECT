@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Nueva Mascota</title>
+    <title>Actualizar Mascota</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 </head>
 <body>
@@ -11,51 +11,56 @@
     <h1 class="text-primary">Administración de Mascotas</h1>
     <hr>
 
-
     <div class="row">
         <div class="col-md-6 bg-lightgray">
             <h2 class="mb-4">Actualizar Mascota</h2>
             <form th:action="@{/guardarMascotas}" th:object="${mascotas}" enctype="multipart/form-data" method="post">
-
                 <input type="hidden" th:field="*{id}">
                 <div class="form-group">
-                    <label for="Raza" class="text-secondary">Raza:</label>
-                    <input type="text" th:field="*{raza}" class="form-control" id="raza" placeholder="raza">
+                    <label for="raza">Raza:</label>
+                    <select id="raza" th:field="*{raza.idRaza}" class="form-control">
+                        <option selected value="0">Seleccione...</option>
+                        <option th:each="r : ${listaRaza}" th:value="${r.idRaza}" th:text="${r.nomRa}"></option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="Descripcion" class="text-secondary">Descripcion:</label>
-                    <input type="text" th:field="*{descripcion}" class="form-control" id="descripcion" placeholder="descripcion">
+                    <label for="descripcion" class="text-secondary">Descripción:</label>
+                    <input type="text" th:field="*{descripcion}" class="form-control" id="descripcion" placeholder="Descripción">
                 </div>
                 <div class="form-group">
                     <label for="sexo" class="text-secondary">Sexo:</label>
-                    <input type="text" th:field="*{sexo}" class="form-control" id="sexo" placeholder="sexo">
+                    <input type="text" th:field="*{sexo}" class="form-control" id="sexo" placeholder="Sexo">
                 </div>
-
                 <div class="form-group">
                     <label for="foto" class="text-secondary">Foto:</label>
                     <input type="file" name="file" class="form-control-file" id="foto">
                 </div>
-
                 <div class="form-group">
                     <label for="nombre" class="text-secondary">Nombre:</label>
                     <input type="text" th:field="*{nombre}" class="form-control" id="nombre" placeholder="Nombre">
                 </div>
-
                 <div class="form-group">
                     <label for="edad" class="text-secondary">Edad:</label>
                     <input type="text" th:field="*{edad}" class="form-control" id="edad" placeholder="Edad">
                 </div>
-
+                <div class="form-group">
+                    <label for="peso" class="text-secondary">Peso:</label>
+                    <input type="number" th:field="*{peso}" class="form-control" id="peso" placeholder="Peso">
+                </div>
+                <div class="form-group">
+                    <label for="albergue">Albergue:</label>
+                    <select id="albergue" th:field="*{albergue.id}" class="form-control">
+                        <option selected value="0">Seleccione...</option>
+                        <option th:each="a : ${listaAlbergue}" th:value="${a.id}" th:text="${a.nombre}"></option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label for="estado" class="text-secondary">Estado:</label>
                     <input type="text" th:field="*{estado}" class="form-control" id="estado" placeholder="Estado">
                 </div>
-
                 <button type="submit" class="btn btn-info mt-4">Actualizar</button>
-
             </form>
         </div>
-
         <div class="col-md-6">
             <!-- Aquí se puede agregar contenido adicional si se desea -->
         </div>

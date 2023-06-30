@@ -21,6 +21,7 @@
             <th>Foto</th>
             <th>Nombre de la mascota</th>
             <th>Edad</th>
+            <th>Peso</th>
             <th>Estado</th>
             <th>Actualizar</th>
             <th>Eliminar</th>
@@ -30,14 +31,15 @@
         <tbody>
         <tr th:each="mascota : ${listaMascotas}">
             <td th:text="${mascota.getId()}" > </td>
-            <td th:text="${mascota.getRaza()}" > </td>
+            <td th:text="${mascota.raza.getNomRa()}" > </td>
             <td th:text="${mascota.getDescripcion()}" > </td>
             <td th:text="${mascota.NombreSexo()}" > </td>
             <td style="text-align: center; vertical-align: middle;">
-                <img th:src="@{/img/uploads/__${mascota.foto}__}" width="30" height="30">
+                <img th:src="@{/img/uploads/mascotas/__${mascota.foto}__}" width="30" height="30">
             </td>
             <td th:text="${mascota.getNombre()}" > </td>
             <td th:text="${mascota.getEdad()}" > </td>
+            <td th:text="${mascota.getPeso()}" > </td>
             <td th:text="${mascota.NombreEstado()}" ></td>
             <td style="text-align: center; vertical-align: middle;">
                 <div class="bg-image hover-zoom">

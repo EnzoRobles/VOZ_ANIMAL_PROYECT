@@ -35,8 +35,8 @@ public class RazaServiceImpl implements RazaService{
         return raza;
     }
 
-    /*@Override
+    @Override
     public List<Raza> findByTamanoAndHorasAndPersonalidadAndHabilidadAndViviendaAndHogar(int tamano, int horas, String personalidad, String habilidad, int vivienda, int hogar) {
-        return razaRepository.findByTamanoLessThanEqualAndHorasLessThanEqualAndPersonalidadAndHabilidadAndViviendaLessThanEqualAndHogarLessThanEqual(tamano, horas, personalidad, habilidad, vivienda, hogar);
-    }*/
+        return razaRepository.findByTamRaLessThanEqualAndHorRaLessThanEqualAndPerRaAndHabRaAndVivRaLessThanEqualAndHogRaLessThanEqual(tamano, horas, personalidad, habilidad, vivienda, hogar);
+    }
 }

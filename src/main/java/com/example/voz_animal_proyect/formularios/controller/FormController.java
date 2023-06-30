@@ -98,5 +98,11 @@ public class FormController {
 
         return "albergues/lobbyInicioSesion";
     }
+    @GetMapping("/solicitud")
+    public String listarSolicitudes(Model model) {
+        List<SolicitudVisita> solicitudes = solicitudService.obtenerSolicitudes();
+        model.addAttribute("solicitudes", solicitudes);
+        return "albergues/solicitud";
+    }
 
 }

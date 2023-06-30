@@ -62,7 +62,7 @@ public class RazaController {
         razaService.guardarRaza(raza);
         return "redirect:/razas";
     }
-
+*/
 
 
     @PostMapping(value = "/form/{tamano}/{horas}/{personalidad}/{habilidad}/{vivienda}/{hogar}")
@@ -75,5 +75,5 @@ public class RazaController {
                                         @PathVariable(value="hogar") int hogar) {
 
         return razaService.findByTamanoAndHorasAndPersonalidadAndHabilidadAndViviendaAndHogar(tamano, horas, personalidad, habilidad, vivienda, hogar);
-    }*/
+    }
 }

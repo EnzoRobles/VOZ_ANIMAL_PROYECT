@@ -12,6 +12,8 @@ import com.example.voz_animal_proyect.raza.model.Raza;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SolicitudServiceImpl implements  SolicitudService{
 
@@ -36,5 +38,26 @@ public class SolicitudServiceImpl implements  SolicitudService{
         solicitudVisita.setAlbergue(albergue);
         solicitudVisita.setPostulantes(postulantes);
         solicitudRepository.save(solicitudVisita);
+    }
+    @Override
+    public List<SolicitudVisita> obtenerSolicitudes() {
+        List<SolicitudVisita> solicitudes = solicitudRepository.findAll();
+
+        for (SolicitudVisita solicitud : solicitudes) {
+            Albergue albergue = albergueRepository.findById(solicitud.getAlbergue().getId()).orElse(null);
+            Mascotas mascota = mascotaRepository.findById(solicitud.getMascotas().getId()).orElse(null);
+            Postulantes postulante = postulanteRepository.findById(solicitud.getPostulantes().getId()).orElse(null);
+
+            if (albergue != null) {
+                solicitud.setNombreAlbergue(albergue.getNombre());
+            }
+            if (mascota != null) {
+                solicitud.setNombreMascota(mascota.getNombre());
+            }
+            if (postulante != null) {
+                solicitud.setNombrePostulante(postulante.getNombre());
+            }
+        }
+        return solicitudes;
     }
 }
